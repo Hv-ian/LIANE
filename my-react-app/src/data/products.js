@@ -1,5 +1,5 @@
-import pMring from '../assets/p-mring.jpg'
-import pMchain from '../assets/p-mchain.jpg'
+import heroNecklace from '../assets/hero-necklace.jpg'
+import splitMen from '../assets/split-men.jpg'
 import pMbracelet from '../assets/p-mbracelet.jpg'
 import pMmodel from '../assets/p-mmodel.jpg'
 import catRings from '../assets/cat-rings.jpg'
@@ -17,9 +17,16 @@ export const products = [
   { id: 'e1', name: 'Droplet Studs', category: 'Earrings', gender: 'women', price: 1290, tag: '', img: catEarrings, desc: 'Faceted teardrop studs that read as a single point of light. Posts in nickel-free recycled gold.' },
   { id: 'b1', name: 'Mesh Cuff', category: 'Bracelets', gender: 'women', price: 3200, tag: '', img: catBracelets, desc: 'A woven mesh cuff inspired by Armenian metalwork — flexible, substantial, and entirely seamless.' },
   { id: 'r2', name: 'Halo Stone Ring', category: 'Rings', gender: 'women', price: 1650, tag: '', img: pMbracelet, desc: 'A cushion-cut stone framed by a fine pavé halo on a slender band. Quietly romantic.' },
-  { id: 'n2', name: 'Pebble Pendant', category: 'Necklaces', gender: 'women', price: 2100, tag: 'Low stock', img: pMring, desc: 'A smooth river-stone pendant suspended on a fine cable chain. Each stone is selected by hand.' },
+  { id: 'n2', name: 'Pebble Pendant', category: 'Necklaces', gender: 'women', price: 2100, tag: 'Low stock', img: heroNecklace, desc: 'A smooth river-stone pendant suspended on a fine cable chain. Each stone is selected by hand.' },
   { id: 'e2', name: 'Rope Hoops', category: 'Earrings', gender: 'women', price: 1480, tag: '', img: pMmodel, desc: 'Twisted rope hoops with a warm gold finish. Light enough to forget you are wearing them.' },
-  { id: 'm1', name: 'Layered Chain', category: 'Necklaces', gender: 'men', price: 2350, tag: 'New', img: pMchain, desc: 'A layered cable chain with a single faceted pendant — substantial, never loud. Designed for him.' },
-  { id: 'm2', name: 'Curb Bracelet', category: 'Bracelets', gender: 'men', price: 2680, tag: '', img: pMchain, desc: 'A weighted curb-link bracelet in recycled solid gold, with a low-profile box clasp.' },
+  { id: 'm1', name: 'Layered Chain', category: 'Necklaces', gender: 'men', price: 2350, tag: 'New', img: splitMen, desc: 'A layered cable chain with a single faceted pendant — substantial, never loud. Designed for him.' },
+  { id: 'm2', name: 'Curb Bracelet', category: 'Bracelets', gender: 'men', price: 2680, tag: '', img: splitMen, desc: 'A weighted curb-link bracelet in recycled solid gold, with a low-profile box clasp.' },
   { id: 'b2', name: 'Thread Bracelet', category: 'Bracelets', gender: 'unisex', price: 1390, tag: '', img: catBracelets, desc: 'The thinnest possible chain, knife-edge polished. Designed to be layered endlessly.' },
+]
+
+export const categories = [
+  { name: 'Rings', count: '12 pieces', img: catRings },
+  { name: 'Necklaces', count: '9 pieces', img: catNecklaces },
+  { name: 'Earrings', count: '14 pieces', img: catEarrings },
+  { name: 'Bracelets', count: '7 pieces', img: catBracelets },
 ]

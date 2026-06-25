@@ -154,6 +154,15 @@ h1, h2 { font-weight: 400; }
 }
 .liane-nav:hover::after { transform: scaleX(1); transform-origin: left; }
 
+.nav-dropdown-wrap { position: relative; padding: 8px 0; }
+.nav-dropdown { position: absolute; top: 100%; left: 0; padding-top: 19px; z-index: 60; }
+.nav-dropdown-inner { background: #fff; border: 1px solid #ece9e4; padding: 24px 28px; min-width: 210px; box-shadow: 0 20px 48px rgba(0,0,0,.1); }
+.nav-dropdown-eyebrow { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #a5a29b; margin-bottom: 16px; }
+.nav-dropdown-list { display: flex; flex-direction: column; gap: 13px; }
+.nav-dropdown-list div { font-family: 'Marcellus', serif; font-size: 16px; cursor: pointer; color: #1c1c1a; transition: color .2s; }
+.nav-dropdown-list div:hover { color: #8a8780; }
+.nav-dropdown-viewall { margin-top: 18px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #8a8780; cursor: pointer; border-top: 1px solid #f0eee9; padding-top: 14px; }
+
 .logo {
   font-family: 'Marcellus', serif;
   font-size: 30px;
@@ -276,6 +285,21 @@ h1, h2 { font-weight: 400; }
 .hero { position: relative; height: 720px; background: #fff; overflow: hidden; }
 .hero-branch {
   position: absolute; top: -20px; right: -40px; width: 62%; max-width: 900px; height: auto; z-index: 1; pointer-events: none;
+  transform-origin: top right; animation: lianeSway 9s ease-in-out infinite alternate;
+}
+@keyframes lianeSway { 0% { transform: rotate(-1.2deg); } 100% { transform: rotate(1.6deg); } }
+
+.hero-petals { position: absolute; top: 121px; right: 0; width: 46%; height: calc(100% - 121px); pointer-events: none; z-index: 6; overflow: hidden; }
+.hero-petals .petal { position: absolute; top: 0; width: 11px; height: 8px; border-radius: 60% 0 60% 0; background: #f0b6c9; opacity: .65; animation: lianeFall 15s linear infinite both; }
+.hero-petals .p1 { right: 90px; animation-duration: 12s; }
+.hero-petals .p2 { right: 240px; background: #f4c7d6; animation-duration: 15s; animation-delay: 3s; }
+.hero-petals .p3 { right: 40px; background: #eeb0c4; animation-duration: 17s; animation-delay: 6s; }
+.hero-petals .p4 { right: 160px; background: #f6d4df; animation-duration: 20s; animation-delay: 9s; }
+.hero-petals .p5 { right: 320px; background: #f0b6c9; animation-duration: 14s; animation-delay: 11s; }
+@keyframes lianeFall {
+  0% { transform: translateY(-10px) translateX(0) rotate(0deg); opacity: 0; }
+  12% { opacity: .8; }
+  100% { transform: translateY(640px) translateX(-90px) rotate(220deg); opacity: 0; }
 }
 .hero-neck { position: absolute; left: 0; top: 0; bottom: 0; width: 46%; z-index: 2; overflow: hidden; }
 .hero-neck img {
@@ -284,7 +308,8 @@ h1, h2 { font-weight: 400; }
   -webkit-mask-image: linear-gradient(90deg,#000 60%,transparent 99%), linear-gradient(0deg,transparent 1%,#000 14%);
   mask-composite: intersect; -webkit-mask-composite: source-in;
 }
-.hero-text { position: absolute; right: 8%; top: 50%; transform: translateY(-50%); z-index: 3; max-width: 440px; }
+.hero-text { position: absolute; right: 8%; top: 50%; transform: translateY(-50%); z-index: 3; max-width: 440px; animation: lianeFade 1s ease both; }
+@keyframes lianeFade { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 .hero-text h1 { font-family: 'Marcellus', serif; font-size: 62px; line-height: 1.05; margin-bottom: 38px; }
 .hero-cta { display: flex; align-items: center; gap: 28px; }
 
@@ -316,7 +341,7 @@ h1, h2 { font-weight: 400; }
 .split-link { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid rgba(244,243,240,.7); padding-bottom: 5px; width: fit-content; }
 .editorial { min-height: 520px; }
 .editorial-img { position: relative; overflow: hidden; background: #efedea; }
-.editorial-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.editorial-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: lianeDrift 20s ease-in-out infinite alternate; }
 .editorial-text { display: flex; flex-direction: column; justify-content: center; padding: 0 72px; background: #f4f3f0; }
 .editorial-text h2 { font-family: 'Marcellus', serif; font-size: 36px; line-height: 1.15; margin-bottom: 22px; }
 .editorial-text p { font-size: 15px; line-height: 1.8; color: #55534e; font-weight: 300; margin-bottom: 30px; max-width: 430px; }
@@ -363,11 +388,18 @@ h1, h2 { font-weight: 400; }
 
 /* ===== HIGHLIGHT ===== */
 .highlight { position: relative; height: 520px; overflow: hidden; background: #1c1c1a; color: #f4f3f0; }
-.highlight img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.highlight img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: lianeDrift 18s ease-in-out infinite alternate; }
+@keyframes lianeDrift { 0% { transform: scale(1.04) translate(0,0); } 100% { transform: scale(1.08) translate(-1.5%,-1.5%); } }
 .highlight-tint { position: absolute; inset: 0; background: linear-gradient(0deg,rgba(20,20,18,.72),rgba(20,20,18,.32)); }
 .highlight-shimmer { position: absolute; inset: 0; background: linear-gradient(120deg,transparent 40%,rgba(255,255,255,.12) 50%,transparent 60%); background-size: 220% 100%; animation: lianeShimmer 7s linear infinite; }
 .highlight-text { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 40px; }
-.highlight-text h2 { font-family: 'Marcellus', serif; font-size: 46px; max-width: 680px; line-height: 1.1; }
+.highlight-text h2 {
+  font-family: 'Marcellus', serif; font-size: 46px; max-width: 680px; line-height: 1.1;
+  background: linear-gradient(90deg,#f4f3f0,#fff,#cfcdc8,#f4f3f0);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: lianeShimmer 6s linear infinite;
+}
 @keyframes lianeShimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 
 /* ===== ABOUT ===== */
@@ -460,6 +492,8 @@ h1, h2 { font-weight: 400; }
   .announce { font-size: 9px; letter-spacing: 1.2px; padding: 7px 8px; }
 
   .hero { height: auto; display: block; }
+  .hero-petals { display: none; }
+  .nav-dropdown { display: none; }
   .hero-neck { position: relative; width: 100%; height: 340px; }
   .hero-neck img { mask-image: linear-gradient(0deg,transparent 1%,#000 16%); -webkit-mask-image: linear-gradient(0deg,transparent 1%,#000 16%); object-position: 60% 22%; }
   .hero-branch { width: 78%; right: -30px; top: -10px; }

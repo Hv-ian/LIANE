@@ -1,4 +1,8 @@
+import { useState } from 'react'
+
 export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMenu }) {
+  const [openMenu, setOpenMenu] = useState(null)
+
   return (
     <>
       <div className="announce">
@@ -9,8 +13,48 @@ export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMen
           <span></span><span></span><span></span>
         </div>
         <div className="nav-links">
-          <div className="liane-nav" onClick={() => onNavigate('shop', 'women')}>Women</div>
-          <div className="liane-nav" onClick={() => onNavigate('shop', 'men')}>Men</div>
+          <div
+            className="nav-dropdown-wrap"
+            onMouseEnter={() => setOpenMenu('women')}
+            onMouseLeave={() => setOpenMenu(null)}
+          >
+            <div className="liane-nav" onClick={() => onNavigate('shop', 'women')}>Women</div>
+            {openMenu === 'women' && (
+              <div className="nav-dropdown">
+                <div className="nav-dropdown-inner">
+                  <div className="nav-dropdown-eyebrow">Shop her</div>
+                  <div className="nav-dropdown-list">
+                    <div onClick={() => onNavigate('shop', 'women')}>Necklaces</div>
+                    <div onClick={() => onNavigate('shop', 'women')}>Earrings</div>
+                    <div onClick={() => onNavigate('shop', 'women')}>Rings</div>
+                    <div onClick={() => onNavigate('shop', 'women')}>Bracelets</div>
+                  </div>
+                  <div className="nav-dropdown-viewall" onClick={() => onNavigate('shop', 'women')}>View all →</div>
+                </div>
+              </div>
+            )}
+          </div>
+          <div
+            className="nav-dropdown-wrap"
+            onMouseEnter={() => setOpenMenu('men')}
+            onMouseLeave={() => setOpenMenu(null)}
+          >
+            <div className="liane-nav" onClick={() => onNavigate('shop', 'men')}>Men</div>
+            {openMenu === 'men' && (
+              <div className="nav-dropdown">
+                <div className="nav-dropdown-inner">
+                  <div className="nav-dropdown-eyebrow">Shop him</div>
+                  <div className="nav-dropdown-list">
+                    <div onClick={() => onNavigate('shop', 'men')}>Signet rings</div>
+                    <div onClick={() => onNavigate('shop', 'men')}>Chains</div>
+                    <div onClick={() => onNavigate('shop', 'men')}>Bracelets</div>
+                    <div onClick={() => onNavigate('shop', 'men')}>Cufflinks</div>
+                  </div>
+                  <div className="nav-dropdown-viewall" onClick={() => onNavigate('shop', 'men')}>View all →</div>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="liane-nav muted" onClick={() => onNavigate('shop')}>Collections</div>
           <div className="liane-nav muted" onClick={() => onNavigate('about')}>About</div>
         </div>

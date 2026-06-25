@@ -1,8 +1,8 @@
 import { formatPrice } from '../data/products'
-import heroNeck from '../assets/split-women.jpg'
+import heroNeck from '../assets/hero-necklace.jpg'
 import heroBranch from '../assets/hero-branch.png'
 import splitWomen from '../assets/split-women.jpg'
-import splitMen from '../assets/p-mchain.jpg'
+import splitMen from '../assets/split-men.jpg'
 import lookA from '../assets/cat-earrings.jpg'
 import lookB from '../assets/cat-bracelets.jpg'
 import highlightImg from '../assets/cat-bracelets.jpg'
@@ -14,6 +14,13 @@ export default function Home({ products, onNavigate, onOpen, onAdd }) {
   return (
     <div>
       <section className="hero">
+        <div className="hero-petals">
+          <span className="petal p1"></span>
+          <span className="petal p2"></span>
+          <span className="petal p3"></span>
+          <span className="petal p4"></span>
+          <span className="petal p5"></span>
+        </div>
         <img src={heroBranch} alt="" className="hero-branch" />
         <div className="hero-neck">
           <img src={heroNeck} alt="Línea necklace collection" />
