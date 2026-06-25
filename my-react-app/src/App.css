@@ -476,6 +476,59 @@ h1, h2 { font-weight: 400; }
 .newsletter-row button { background: #f4f3f0; color: #1c1c1a; border: none; padding: 0 18px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; }
 .footer-bottom { display: flex; justify-content: space-between; padding-top: 26px; font-size: 11px; letter-spacing: 1px; color: #76736b; }
 
+/* ===== OWNER ADMIN (demo) ===== */
+.owner-link { cursor: pointer; text-decoration: underline; text-decoration-color: transparent; transition: text-decoration-color .2s; }
+.owner-link:hover { text-decoration-color: #76736b; }
+
+.owner-login { min-height: 70vh; display: flex; align-items: center; justify-content: center; padding: 40px 22px; }
+.owner-login-box { width: 100%; max-width: 360px; }
+.owner-error { color: #b5413a; font-size: 13px; margin-top: 10px; }
+.owner-demo-note { font-size: 11px; color: #a5a29b; margin-top: 16px; letter-spacing: .5px; }
+
+.owner-page { padding: 40px 48px 90px; }
+.owner-header { margin-bottom: 32px; }
+.owner-header h1 { font-family: 'Marcellus', serif; font-size: 34px; margin: 14px 0 6px; }
+.owner-orders { display: flex; flex-direction: column; gap: 18px; }
+.owner-order-card { border: 1px solid #ece9e4; padding: 24px 28px; background: #faf9f7; }
+.owner-order-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.owner-order-id { font-family: 'Marcellus', serif; font-size: 18px; }
+.owner-order-date { font-size: 12px; color: #a5a29b; margin-top: 2px; }
+.owner-status { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; border: 1px solid #d8d5d0; color: #55534e; }
+.owner-status-shipped { background: #1c1c1a; color: #fff; border-color: #1c1c1a; }
+.owner-status-paid { background: #eef3ee; border-color: #c9dcc9; color: #3a5c3a; }
+.owner-status-processing { background: #fdf3e6; border-color: #e9d2a6; color: #8a6a2a; }
+.owner-order-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; margin-bottom: 18px; }
+.owner-order-name { font-family: 'Marcellus', serif; font-size: 16px; margin-bottom: 6px; }
+.owner-order-addr { font-size: 13px; color: #55534e; line-height: 1.6; }
+.owner-order-item { font-size: 13px; color: #55534e; margin-bottom: 4px; }
+.owner-order-total { font-size: 13px; margin-top: 8px; font-weight: 500; }
+.owner-print-btn { width: auto; margin-top: 0; padding: 11px 22px; }
+
+.label-page { padding: 40px 48px 90px; display: flex; flex-direction: column; align-items: center; }
+.label-actions { width: 100%; max-width: 480px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+.shipping-label {
+  width: 100%; max-width: 480px; border: 2px solid #1c1c1a; padding: 32px; background: #fff;
+  font-family: 'Jost', sans-serif;
+}
+.label-section-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #a5a29b; margin-bottom: 10px; }
+.label-from { font-size: 13px; color: #55534e; line-height: 1.6; margin-bottom: 20px; }
+.label-divider { border-top: 1px dashed #d8d5d0; margin: 16px 0; }
+.label-name { font-family: 'Marcellus', serif; font-size: 22px; margin-bottom: 8px; }
+.label-addr { font-size: 16px; line-height: 1.6; }
+.label-meta { display: flex; justify-content: space-between; font-size: 12px; color: #a5a29b; margin-top: 16px; }
+
+@media print {
+  .nav, .announce, .no-print { display: none !important; }
+  .label-page { padding: 0; }
+  .shipping-label { border: none; max-width: 100%; }
+}
+
+@media (max-width: 760px) {
+  .owner-page, .label-page { padding: 24px 22px 70px; }
+  .owner-order-body { grid-template-columns: 1fr; gap: 16px; }
+  .owner-order-card { padding: 20px 18px; }
+}
+
 /* ===== RESPONSIVE (tablet) ===== */
 @media (max-width: 1000px) {
   .prod-grid4, .cat-grid { grid-template-columns: repeat(2,1fr); }

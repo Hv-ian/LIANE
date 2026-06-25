@@ -8,6 +8,7 @@ import Shop from './components/Shop'
 import Product from './components/Product'
 import About from './components/About'
 import Checkout from './components/Checkout'
+import Owner from './components/Owner'
 import './App.css'
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
         )}
         {screen === 'about' && <About onNavigate={navigate} />}
         {screen === 'checkout' && <Checkout cart={cart} onBack={() => navigate('shop')} />}
+        {screen === 'owner' && <Owner onBack={() => navigate('home')} />}
 
         {screen === 'home' && (
           <footer className="site-footer">
@@ -105,7 +107,7 @@ function App() {
             </div>
             <div className="footer-bottom">
               <span>© 2026 LIANÉ. All rights reserved.</span>
-              <span>Privacy · Terms · Cookies</span>
+              <span>Privacy · Terms · Cookies · <span className="owner-link" onClick={() => navigate('owner')}>Owner login</span></span>
             </div>
           </footer>
         )}
