@@ -1,0 +1,4 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #f4f3f0; }
+#root { min-height: 100vh; }
+::selection { background: #1c1c1a; color: #fff; }
