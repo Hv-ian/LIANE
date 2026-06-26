@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { products } from './data/products'
+import { products, matchingSets, armenianSymbols } from './data/products'
 import Nav from './components/Nav'
 import MobileMenu from './components/MobileMenu'
 import CartDrawer from './components/CartDrawer'
@@ -9,20 +9,26 @@ import Product from './components/Product'
 import About from './components/About'
 import Checkout from './components/Checkout'
 import Owner from './components/Owner'
+import Sets from './components/Sets'
+import Heritage from './components/Heritage'
+import CustomOrder from './components/CustomOrder'
 import './App.css'
 
 function App() {
   const [screen, setScreen] = useState('home')
   const [gender, setGender] = useState(null)
+  const [material, setMaterial] = useState(null)
   const [currentId, setCurrentId] = useState('r1')
   const [cart, setCart] = useState([])
   const [cartOpen, setCartOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  function navigate(target, g) {
+  function navigate(target, g, m) {
     setScreen(target)
     if (g !== undefined) setGender(g)
     else if (target === 'shop') setGender(null)
+    if (m !== undefined) setMaterial(m)
+    else if (target === 'shop') setMaterial(null)
     setCartOpen(false)
     setMobileMenuOpen(false)
     window.scrollTo(0, 0)
@@ -51,6 +57,20 @@ function App() {
     setCart(prev => prev.filter(c => c.id !== id))
   }
 
+  function addSetToCart(items) {
+    setCart(prev => {
+      let next = prev
+      items.forEach(p => {
+        const existing = next.find(c => c.id === p.id)
+        next = existing
+          ? next.map(c => c.id === p.id ? { ...c, qty: c.qty + 1 } : c)
+          : [...next, { ...p, qty: 1 }]
+      })
+      return next
+    })
+    setCartOpen(true)
+  }
+
   const cartCount = cart.reduce((a, c) => a + c.qty, 0)
   const currentProduct = products.find(p => p.id === currentId)
 
@@ -68,12 +88,17 @@ function App() {
           <Home products={products} onNavigate={navigate} onOpen={openProduct} onAdd={addToCart} />
         )}
         {screen === 'shop' && (
-          <Shop products={products} gender={gender} onOpen={openProduct} onAdd={addToCart} />
+          <Shop products={products} gender={gender} material={material} onOpen={openProduct} onAdd={addToCart} />
         )}
         {screen === 'product' && (
           <Product product={currentProduct} onBack={() => navigate('shop')} onAdd={addToCart} />
         )}
         {screen === 'about' && <About onNavigate={navigate} />}
+        {screen === 'sets' && (
+          <Sets sets={matchingSets} products={products} onOpen={openProduct} onAddSet={addSetToCart} />
+        )}
+        {screen === 'heritage' && <Heritage symbols={armenianSymbols} onNavigate={navigate} />}
+        {screen === 'custom' && <CustomOrder onBack={() => navigate('home')} />}
         {screen === 'checkout' && <Checkout cart={cart} onBack={() => navigate('shop')} />}
         {screen === 'owner' && <Owner onBack={() => navigate('home')} />}
 
@@ -87,7 +112,10 @@ function App() {
               <div>
                 <div className="footer-head">Shop</div>
                 <div className="footer-list">
-                  <span>Rings</span><span>Necklaces</span><span>Earrings</span><span>Bracelets</span>
+                  <span className="footer-link" onClick={() => navigate('shop', null, 'silver')}>Silver & Stone</span>
+                  <span className="footer-link" onClick={() => navigate('sets')}>Matching Sets</span>
+                  <span className="footer-link" onClick={() => navigate('heritage')}>Armenian Heritage</span>
+                  <span className="footer-link" onClick={() => navigate('custom')}>Custom Orders</span>
                 </div>
               </div>
               <div>

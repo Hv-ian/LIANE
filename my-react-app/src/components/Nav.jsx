@@ -55,7 +55,9 @@ export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMen
               </div>
             )}
           </div>
-          <div className="liane-nav muted" onClick={() => onNavigate('shop')}>Collections</div>
+          <div className="liane-nav muted" onClick={() => onNavigate('shop', null, 'silver')}>Silver &amp; Stone</div>
+          <div className="liane-nav muted" onClick={() => onNavigate('sets')}>Sets</div>
+          <div className="liane-nav muted" onClick={() => onNavigate('heritage')}>Heritage</div>
           <div className="liane-nav muted" onClick={() => onNavigate('about')}>About</div>
         </div>
         <div className="logo" onClick={() => onNavigate('home')}>LIANÉ</div>

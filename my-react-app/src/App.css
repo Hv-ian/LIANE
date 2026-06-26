@@ -476,6 +476,51 @@ h1, h2 { font-weight: 400; }
 .newsletter-row button { background: #f4f3f0; color: #1c1c1a; border: none; padding: 0 18px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; }
 .footer-bottom { display: flex; justify-content: space-between; padding-top: 26px; font-size: 11px; letter-spacing: 1px; color: #76736b; }
 
+/* ===== SHOP: material badge / meaning / footer links ===== */
+.prod-material-badge { position: absolute; top: 12px; right: 12px; background: #fff; border: 1px solid #d8d5d0; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 10px; color: #55534e; }
+.prod-thumb { position: relative; }
+.prod-meaning { font-size: 11px; color: #a5a29b; font-style: italic; margin-top: 6px; }
+.shop-empty { grid-column: 1 / -1; text-align: center; padding: 60px 0; color: #a5a29b; font-size: 14px; }
+.footer-link { cursor: pointer; }
+.footer-link:hover { color: #f4f3f0; }
+
+/* ===== MATCHING SETS ===== */
+.sets-page { padding-bottom: 90px; }
+.sets-intro { max-width: 520px; margin: 18px auto 0; font-size: 14px; line-height: 1.8; color: #55534e; font-weight: 300; }
+.sets-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: #ece9e4; }
+.set-card { background: #fff; display: grid; grid-template-columns: 0.9fr 1.1fr; }
+.set-img { overflow: hidden; background: #efedea; }
+.set-img img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 320px; }
+.set-body { padding: 36px 34px; display: flex; flex-direction: column; }
+.set-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #8a8780; margin-bottom: 12px; }
+.set-body h2 { font-family: 'Marcellus', serif; font-size: 26px; margin-bottom: 14px; }
+.set-body p { font-size: 14px; line-height: 1.8; color: #55534e; font-weight: 300; margin-bottom: 14px; }
+.set-meaning { font-size: 12px; font-style: italic; color: #8a8780; margin-bottom: 20px; }
+.set-items { border-top: 1px solid #ece9e4; border-bottom: 1px solid #ece9e4; padding: 14px 0; margin-bottom: 20px; }
+.set-item-row { display: flex; justify-content: space-between; font-size: 13px; color: #55534e; padding: 6px 0; cursor: pointer; }
+.set-item-row:hover { color: #1c1c1a; }
+
+/* ===== ARMENIAN HERITAGE ===== */
+.heritage-hero { text-align: center; max-width: 640px; margin: 0 auto; padding: 80px 40px 56px; }
+.heritage-hero h1 { font-family: 'Marcellus', serif; font-size: 44px; margin: 16px 0 22px; }
+.heritage-hero p { font-size: 15px; line-height: 1.85; color: #55534e; font-weight: 300; }
+.heritage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #ece9e4; border-top: 1px solid #ece9e4; border-bottom: 1px solid #ece9e4; }
+.symbol-card { background: #fff; padding: 0 0 36px; }
+.symbol-img { aspect-ratio: 1; overflow: hidden; background: #efedea; margin-bottom: 22px; }
+.symbol-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.symbol-card h3 { font-family: 'Marcellus', serif; font-size: 20px; padding: 0 30px; margin-bottom: 8px; }
+.symbol-meaning { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #8a8780; padding: 0 30px; margin-bottom: 14px; }
+.symbol-card p { font-size: 13px; line-height: 1.75; color: #55534e; font-weight: 300; padding: 0 30px; }
+.heritage-cta { text-align: center; padding: 70px 40px; }
+.heritage-cta p { font-size: 15px; color: #55534e; margin-bottom: 22px; }
+
+/* ===== CUSTOM ORDER ===== */
+.custom-page { display: flex; justify-content: center; padding: 60px 22px 100px; }
+.custom-form-wrap { width: 100%; max-width: 480px; }
+.custom-form-wrap h1 { font-family: 'Marcellus', serif; font-size: 32px; margin: 18px 0 14px; }
+.custom-intro { font-size: 14px; line-height: 1.8; color: #55534e; font-weight: 300; margin-bottom: 36px; }
+.ck-textarea { resize: vertical; font-family: 'Jost', sans-serif; }
+
 /* ===== OWNER ADMIN (demo) ===== */
 .owner-link { cursor: pointer; text-decoration: underline; text-decoration-color: transparent; transition: text-decoration-color .2s; }
 .owner-link:hover { text-decoration-color: #76736b; }
@@ -527,12 +572,21 @@ h1, h2 { font-weight: 400; }
   .owner-page, .label-page { padding: 24px 22px 70px; }
   .owner-order-body { grid-template-columns: 1fr; gap: 16px; }
   .owner-order-card { padding: 20px 18px; }
+
+  .sets-grid { grid-template-columns: 1fr; }
+  .heritage-hero { padding: 56px 22px 40px; }
+  .heritage-hero h1 { font-size: 32px; }
+  .symbol-card h3, .symbol-meaning, .symbol-card p { padding: 0 22px; }
+  .custom-page { padding: 40px 18px 80px; }
 }
 
 /* ===== RESPONSIVE (tablet) ===== */
 @media (max-width: 1000px) {
   .prod-grid4, .cat-grid { grid-template-columns: repeat(2,1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .heritage-grid { grid-template-columns: 1fr; }
+  .set-card { grid-template-columns: 1fr; }
+  .set-img img { min-height: 220px; }
 }
 
 /* ===== RESPONSIVE (mobile) ===== */
