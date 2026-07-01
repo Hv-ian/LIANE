@@ -640,22 +640,76 @@ h1, h2 { font-weight: 400; }
 .material-preview-label { font-family: 'Marcellus', serif; font-size: 18px; }
 .material-preview-meaning { font-size: 12px; color: #8a8780; font-style: italic; margin-top: 2px; }
 
+/* silver badge (step 1) */
+.silver-badge { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border: 1px solid #dddad4; background: #faf9f7; margin-bottom: 32px; }
+.silver-badge-swatch { width: 36px; height: 36px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #e2e0db, #c8c5bf 55%, #a8a5a0); border: 1px solid rgba(0,0,0,.08); flex-shrink: 0; }
+.silver-badge-name { font-family: 'Marcellus', serif; font-size: 15px; color: #1c1c1a; }
+.silver-badge-note { font-size: 12px; color: #8a8780; margin-top: 2px; letter-spacing: .3px; }
+
+/* stone selected bar */
+.stone-selected-bar { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: #f4f3f0; border: 1px solid #e0ddd7; margin-top: 16px; font-size: 13px; color: #3a3834; }
+.stone-selected-dot { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; }
+.stone-orb-none { border: 2px dashed #ccc !important; background: transparent !important; }
+
+/* piece grid — 2-column large cards for ring/bracelet */
+.piece-grid-2 { grid-template-columns: 1fr 1fr; max-width: 520px; margin: 0 auto 8px; }
+.piece-card-large .piece-svg { width: 72px; height: 72px; margin-bottom: 12px; }
+.piece-card-large { padding: 32px 24px 24px; }
+
 /* engraving layout */
-.engrave-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; margin-bottom: 32px; }
-.engrave-preview { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; background: #f4f3f0; }
-.engrave-pulse-wrap { display: flex; align-items: center; justify-content: center; }
-.engrave-svg { width: 100%; max-width: 200px; height: auto; filter: drop-shadow(0 6px 20px rgba(28,28,26,.15)); animation: engraveIdle 4s ease-in-out infinite; }
-@keyframes engraveIdle { 0%,100% { filter: drop-shadow(0 6px 20px rgba(28,28,26,.15)) brightness(1); } 50% { filter: drop-shadow(0 10px 30px rgba(28,28,26,.22)) brightness(1.05); } }
-@keyframes engravePulse { 0% { opacity:.6; transform:scale(.96); } 60% { opacity:1; transform:scale(1.02); } 100% { opacity:1; transform:scale(1); } }
-.engrave-pulse-wrap.engrave-pulse .engrave-svg { animation: engravePulse .5s ease-out both, engraveIdle 4s ease-in-out 0.5s infinite; }
+.engrave-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; margin-bottom: 32px; align-items: start; }
+.engrave-preview { position: relative; }
 .engrave-controls { padding-top: 4px; }
 
-/* symbol row buttons */
-.symbol-row-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border: 1px solid #e0ddd7; background: #faf9f7; cursor: pointer; transition: all .2s; font-family: 'Jost', sans-serif; }
-.symbol-row-btn:hover, .symbol-row-btn.active { border-color: #1c1c1a; background: #fff; }
-.symbol-row-btn.active { box-shadow: inset 0 0 0 1px #1c1c1a; }
-.symbol-row-name { font-size: 13px; font-family: 'Marcellus', serif; color: #1c1c1a; }
-.symbol-row-note { font-size: 11px; color: #8a8780; letter-spacing: .5px; }
+/* photo-based engraving preview */
+.engrave-photo-wrap { position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 32px rgba(28,28,26,.18); }
+.engrave-photo { width: 100%; display: block; object-fit: cover; aspect-ratio: 4/3; }
+.engrave-photo-band {
+  position: absolute; left: 0; right: 0;
+  height: 48%;
+  background: linear-gradient(to top, rgba(10,10,8,.72) 0%, rgba(10,10,8,.1) 100%);
+  pointer-events: none;
+}
+/* ring: band at bottom (inner band area) */
+.engrave-photo-wrap.ring .engrave-photo-band { bottom: 0; top: auto; background: linear-gradient(to top, rgba(6,5,4,.78) 0%, rgba(6,5,4,.08) 100%); }
+/* bracelet: band in center */
+.engrave-photo-wrap.bracelet .engrave-photo-band { top: 25%; height: 50%; background: rgba(6,5,4,.45); }
+
+.engrave-photo-overlay {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  padding: 18px 16px 14px; pointer-events: none;
+}
+.engrave-photo-wrap.bracelet .engrave-photo-overlay {
+  top: 0; bottom: 0; justify-content: center;
+}
+
+.engrave-photo-text {
+  font-family: 'Marcellus', serif;
+  font-size: clamp(16px, 3.5vw, 26px);
+  letter-spacing: 6px;
+  color: rgba(218,214,206,0.95);
+  text-shadow: 0 0 12px rgba(200,197,191,.45), 0 1px 3px rgba(0,0,0,.65), 0 -1px 1px rgba(255,255,255,.12);
+  line-height: 1;
+  transition: all .25s ease;
+}
+.engrave-photo-text.placeholder {
+  color: rgba(200,197,191,0.28);
+  letter-spacing: 5px;
+  font-size: 13px;
+}
+.engrave-photo-caption {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(180,176,168,.6);
+  margin-top: 8px;
+}
+
+/* engraving info box */
+.engrave-info-box { margin-top: 24px; padding: 18px 20px; border-left: 2px solid #c9b88a33; background: #faf9f7; }
+.engrave-info-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #8a8780; margin-bottom: 8px; }
+.engrave-info-text { font-size: 13px; line-height: 1.75; color: #55534e; margin: 0; font-weight: 300; }
 
 /* contact + summary layout */
 .contact-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; }
@@ -694,7 +748,8 @@ h1, h2 { font-weight: 400; }
   .custom-step-line { width: 28px; margin: 0 6px; }
   .custom-step-label { display: none; }
   .custom-builder-body { padding: 28px 18px 60px; }
-  .piece-grid { grid-template-columns: repeat(3, 1fr); }
+  .piece-grid { grid-template-columns: repeat(2, 1fr); }
+  .piece-grid-2 { grid-template-columns: 1fr 1fr; max-width: 100%; }
   .stone-grid { grid-template-columns: repeat(2, 1fr); }
   .metal-cards { flex-direction: column; }
   .engrave-layout { grid-template-columns: 1fr; }
