@@ -476,6 +476,60 @@ h1, h2 { font-weight: 400; }
 .newsletter-row button { background: #f4f3f0; color: #1c1c1a; border: none; padding: 0 18px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; }
 .footer-bottom { display: flex; justify-content: space-between; padding-top: 26px; font-size: 11px; letter-spacing: 1px; color: #76736b; }
 
+/* ===== PERSONALISATION CONFIGURATOR ===== */
+.pers-flag { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #8a8780; padding: 10px 48px; border-bottom: 1px solid #ece9e4; background: #faf9f7; }
+
+.pers-section-wrap { border-top: 1px solid #ece9e4; margin-top: 20px; }
+.pers-section-head { text-align: center; padding: 64px 48px 36px; background: #faf9f7; border-bottom: 1px solid #ece9e4; }
+.pers-section-head h2 { font-family: 'Marcellus', serif; font-size: 34px; margin: 12px 0 14px; }
+.pers-section-head p { font-size: 14px; line-height: 1.8; color: #55534e; font-weight: 300; max-width: 460px; margin: 0 auto; }
+
+.pers-panel { display: grid; grid-template-columns: 1fr 1.4fr; min-height: 580px; border-bottom: 1px solid #ece9e4; }
+
+.pers-preview { background: #f4f3f0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 28px; position: sticky; top: 0; }
+.pendant-svg { width: 100%; max-width: 240px; height: auto; filter: drop-shadow(0 8px 28px rgba(28,28,26,.12)); }
+.pers-preview-note { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #a5a29b; margin-top: 16px; }
+
+.pers-controls { padding: 44px 48px 52px; }
+.pers-headline { font-family: 'Marcellus', serif; font-size: 22px; margin-bottom: 32px; }
+
+.pers-section { margin-bottom: 26px; }
+.pers-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #8a8780; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.pers-badge { background: #1c1c1a; color: #fff; padding: 3px 8px; font-size: 10px; letter-spacing: 1px; border-radius: 2px; }
+.pers-muted { text-transform: none; letter-spacing: 0; font-size: 12px; color: #a5a29b; }
+.pers-hint { font-size: 11px; color: #a5a29b; margin-top: 7px; }
+
+.pers-input { width: 100%; border: 1px solid #d8d5d0; padding: 13px 16px; font-family: 'Marcellus', serif; font-size: 18px; letter-spacing: 4px; outline: none; background: #fff; text-transform: uppercase; transition: border-color .2s; }
+.pers-input:focus { border-color: #1c1c1a; }
+
+.pers-chip-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.pers-chip { display: flex; align-items: center; gap: 8px; padding: 9px 16px; border: 1px solid #d8d5d0; background: transparent; font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1px; cursor: pointer; color: #1c1c1a; transition: all .2s; }
+.pers-chip:hover { border-color: #1c1c1a; }
+.pers-chip.active { background: #1c1c1a; color: #fff; border-color: #1c1c1a; }
+.pers-swatch { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,.12); flex-shrink: 0; }
+
+.pers-stone-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.pers-stone-btn { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 14px; border: 1px solid #d8d5d0; background: transparent; cursor: pointer; transition: all .2s; min-width: 68px; }
+.pers-stone-btn:hover { border-color: #1c1c1a; }
+.pers-stone-btn.active { border-color: #1c1c1a; background: #f4f3f0; }
+.pers-stone-dot { width: 22px; height: 22px; border-radius: 50%; display: block; }
+.pers-stone-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: #55534e; white-space: nowrap; }
+
+.pers-price-row { display: flex; align-items: center; justify-content: space-between; margin-top: 32px; padding-top: 24px; border-top: 1px solid #ece9e4; }
+.pers-price { font-family: 'Marcellus', serif; font-size: 26px; }
+.pers-price-note { font-size: 11px; color: #8a8780; margin-top: 3px; }
+.pers-add-btn { padding: 16px 32px; font-size: 12px; }
+.pers-disclaimer { font-size: 11px; color: #a5a29b; margin-top: 14px; }
+
+@media (max-width: 900px) {
+  .pers-panel { grid-template-columns: 1fr; }
+  .pers-preview { position: static; padding: 36px 22px 28px; }
+  .pendant-svg { max-width: 180px; }
+  .pers-controls { padding: 28px 22px 40px; }
+  .pers-price-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .pers-add-btn { width: 100%; text-align: center; }
+}
+
 /* ===== SHOP: material badge / meaning / footer links ===== */
 .prod-material-badge { position: absolute; top: 12px; right: 12px; background: #fff; border: 1px solid #d8d5d0; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 10px; color: #55534e; }
 .prod-thumb { position: relative; }

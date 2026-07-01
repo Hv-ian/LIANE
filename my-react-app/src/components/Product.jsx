@@ -1,4 +1,5 @@
 import { formatPrice } from '../data/products'
+import PersonalizationPanel from './PersonalizationPanel'
 
 const metals = [
   { name: 'Gold', active: true },
@@ -12,6 +13,11 @@ export default function Product({ product, onBack, onAdd }) {
   return (
     <div className="product-page">
       <div className="back-link" onClick={onBack}>← Back to collection</div>
+
+      {product.personalizable && (
+        <div className="pers-flag">✦ This piece can be personalised</div>
+      )}
+
       <div className="prod-detail">
         <div className="prod-gallery">
           <div className="prod-thumbs">
@@ -48,6 +54,17 @@ export default function Product({ product, onBack, onAdd }) {
           </div>
         </div>
       </div>
+
+      {product.personalizable && (
+        <div className="pers-section-wrap">
+          <div className="pers-section-head">
+            <div className="eyebrow">Made for you</div>
+            <h2>Design your own</h2>
+            <p>Choose your initials, symbol, stone, and metal. We engrave each piece by hand before it ships.</p>
+          </div>
+          <PersonalizationPanel product={product} onAdd={onAdd} />
+        </div>
+      )}
     </div>
   )
 }
