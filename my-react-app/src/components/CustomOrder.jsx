@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { formatPrice } from '../data/products'
 
 const STEPS = ['Piece', 'Material', 'Engrave', 'Contact']
@@ -376,102 +376,349 @@ export default function CustomOrder({ onBack }) {
   )
 }
 
+// ── Armenian symbol — drawn clearly for all piece types ───────────────────────
+function SymbolMark({ symbol, cx, cy, size = 22, color }) {
+  if (!symbol || symbol === 'none') return null
+  const s = size
+
+  if (symbol === 'cross') return (
+    <g>
+      {/* Vertical bar */}
+      <rect x={cx - s * 0.14} y={cy - s * 0.82} width={s * 0.28} height={s * 1.64} rx={s * 0.06} fill={color} opacity=".78"/>
+      {/* Horizontal bar */}
+      <rect x={cx - s * 0.68} y={cy - s * 0.14} width={s * 1.36} height={s * 0.28} rx={s * 0.06} fill={color} opacity=".78"/>
+      {/* Khachkar circle */}
+      <circle cx={cx} cy={cy} r={s * 0.35} fill="none" stroke={color} strokeWidth={s * 0.065} opacity=".72"/>
+      {/* Corner dots (traditional khachkar detail) */}
+      {[[-s*.55,-s*.55],[s*.55,-s*.55],[-s*.55,s*.55],[s*.55,s*.55]].map(([dx,dy],i) => (
+        <circle key={i} cx={cx+dx} cy={cy+dy} r={s*0.07} fill={color} opacity=".5"/>
+      ))}
+    </g>
+  )
+
+  if (symbol === 'knot') return (
+    <g>
+      {/* Eternity knot — interlocking loops */}
+      <path d={`M${cx-s*.55},${cy-s*.3} C${cx-s*.55},${cy-s*.82} ${cx+s*.55},${cy-s*.82} ${cx+s*.55},${cy-s*.3}
+               C${cx+s*.55},${cy+s*.12} ${cx},${cy+s*.12} ${cx},${cy}
+               C${cx},${cy-s*.12} ${cx-s*.55},${cy-s*.12} ${cx-s*.55},${cy+s*.3}
+               C${cx-s*.55},${cy+s*.82} ${cx+s*.55},${cy+s*.82} ${cx+s*.55},${cy+s*.3}`}
+        fill="none" stroke={color} strokeWidth={s*0.075} opacity=".75" strokeLinecap="round"/>
+      <circle cx={cx} cy={cy} r={s*0.1} fill={color} opacity=".65"/>
+    </g>
+  )
+
+  if (symbol === 'pom') return (
+    <g>
+      {/* Pomegranate body */}
+      <ellipse cx={cx} cy={cy + s*.2} rx={s*.46} ry={s*.42} fill="none" stroke={color} strokeWidth={s*.07} opacity=".76"/>
+      {/* Crown */}
+      <path d={`M${cx-s*.28},${cy-s*.22} L${cx-s*.16},${cy-s*.54} L${cx},${cy-s*.38} L${cx+s*.16},${cy-s*.54} L${cx+s*.28},${cy-s*.22}`}
+        stroke={color} strokeWidth={s*.075} fill="none" strokeLinejoin="round" opacity=".76"/>
+      {/* Seeds */}
+      <circle cx={cx} cy={cy+s*.12} r={s*.1} fill={color} opacity=".58"/>
+      <circle cx={cx-s*.22} cy={cy+s*.28} r={s*.075} fill={color} opacity=".52"/>
+      <circle cx={cx+s*.22} cy={cy+s*.28} r={s*.075} fill={color} opacity=".52"/>
+    </g>
+  )
+
+  return null
+}
+
 // ── Engraving preview SVG — adapts per piece type ─────────────────────────────
 function EngravingPreview({ piece, metal: m, engraving, symbol, stone }) {
+  const wrapRef = useRef(null)
+
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    el.classList.remove('engrave-pulse')
+    void el.offsetWidth
+    el.classList.add('engrave-pulse')
+  }, [engraving, symbol])
+
   const c = m?.color || '#c8c5bf'
   const hi = m?.hi || '#e2e0db'
   const ox = m?.id === 'gold' ? '#8a7848' : '#7a7872'
   const hasStone = stone?.id && stone.id !== 'none'
   const sf = hasStone ? stone.fill : null
 
-  // ring preview
+  // ── Signet ring — proper 3D perspective ──────────────────────────────────────
   if (piece === 'ring') return (
-    <svg viewBox="0 0 200 140" className="engrave-svg">
-      <defs>
-        <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={hi}/><stop offset="100%" stopColor={c}/>
-        </linearGradient>
-      </defs>
-      <ellipse cx="100" cy="95" rx="55" ry="22" fill={c} opacity=".3"/>
-      <rect x="45" y="42" width="110" height="53" rx="4" fill="url(#rg)" opacity=".9"/>
-      <ellipse cx="100" cy="42" rx="55" ry="20" fill={hi}/>
-      <ellipse cx="100" cy="42" rx="55" ry="20" fill="none" stroke={ox} strokeWidth="1"/>
-      {hasStone && <ellipse cx="100" cy="42" rx="12" ry="7" fill={sf} opacity=".9"/>}
-      {engraving && <text x="100" y="72" textAnchor="middle" dominantBaseline="middle" fontSize={engraving.length > 6 ? 11 : 14} fill={ox} fontFamily="'Marcellus',serif" letterSpacing="2">{engraving.toUpperCase()}</text>}
-      {!engraving && <text x="100" y="72" textAnchor="middle" fontSize="9" fill={ox} opacity=".4" fontFamily="'Jost',sans-serif" letterSpacing="1.5">YOUR TEXT</text>}
-    </svg>
+    <div ref={wrapRef} className="engrave-pulse-wrap">
+      <svg viewBox="0 0 240 260" className="engrave-svg">
+        <defs>
+          <radialGradient id="rmg" cx="38%" cy="30%" r="68%">
+            <stop offset="0%" stopColor={hi}/>
+            <stop offset="58%" stopColor={c}/>
+            <stop offset="100%" stopColor={ox}/>
+          </radialGradient>
+          <radialGradient id="rfg" cx="42%" cy="32%" r="62%">
+            <stop offset="0%" stopColor={hi}/>
+            <stop offset="100%" stopColor={c}/>
+          </radialGradient>
+          <linearGradient id="rwg" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor={c}/>
+            <stop offset="100%" stopColor={ox} stopOpacity=".8"/>
+          </linearGradient>
+          <filter id="rfs">
+            <feDropShadow dx="0" dy="6" stdDeviation="10" floodColor="#1c1c1a" floodOpacity=".3"/>
+          </filter>
+          <filter id="rps">
+            <feDropShadow dx="0" dy="4" stdDeviation="7" floodColor="#1c1c1a" floodOpacity=".22"/>
+          </filter>
+        </defs>
+
+        {/* Ground shadow */}
+        <ellipse cx="120" cy="250" rx="62" ry="7" fill="#1c1c1a" opacity=".08"/>
+
+        {/* Ring band — left wall */}
+        <path d="M58 95 Q52 128 54 175 Q66 192 94 196 L96 184 Q70 180 66 165 Q64 128 70 95Z" fill="url(#rwg)" opacity=".8"/>
+
+        {/* Ring band — right wall */}
+        <path d="M182 95 Q188 128 186 175 Q174 192 146 196 L144 184 Q170 180 174 165 Q176 128 170 95Z" fill="url(#rwg)" opacity=".8"/>
+
+        {/* Ring band — bottom arc */}
+        <ellipse cx="120" cy="188" rx="52" ry="12" fill={ox} opacity=".55"/>
+        <ellipse cx="120" cy="188" rx="52" ry="12" fill="none" stroke={hi} strokeWidth=".8" opacity=".25"/>
+
+        {/* Ring top face */}
+        <ellipse cx="120" cy="92" rx="74" ry="26" fill="url(#rmg)" filter="url(#rfs)"/>
+
+        {/* Ring hole */}
+        <ellipse cx="120" cy="92" rx="37" ry="14" fill="#1a1815"/>
+        <ellipse cx="120" cy="92" rx="37" ry="14" fill="none" stroke={ox} strokeWidth=".8" opacity=".4"/>
+
+        {/* Top face edge highlight */}
+        <ellipse cx="120" cy="92" rx="74" ry="26" fill="none" stroke={hi} strokeWidth="1.8" opacity=".5"/>
+
+        {/* Signet plate (front bezel) */}
+        <rect x="76" y="112" width="88" height="74" rx="9" fill="url(#rfg)" filter="url(#rps)"/>
+        <rect x="76" y="112" width="88" height="74" rx="9" fill="none" stroke={hi} strokeWidth="1.3" opacity=".5"/>
+
+        {/* Inset engraving panel */}
+        <rect x="83" y="119" width="74" height="60" rx="6" fill={c} opacity=".28"/>
+        <rect x="83" y="119" width="74" height="60" rx="6" fill="none" stroke={ox} strokeWidth=".7" opacity=".3"/>
+
+        {/* Stone on bezel */}
+        {hasStone && <>
+          <circle cx="120" cy="130" r="9" fill={sf} stroke={ox} strokeWidth="1.3" opacity=".95"/>
+          <circle cx="117" cy="127" r="3" fill="#fff" opacity=".28"/>
+        </>}
+
+        {/* Armenian symbol — large and clear */}
+        <SymbolMark symbol={symbol} cx={120} cy={hasStone ? 154 : 146} size={28} color={ox}/>
+
+        {/* Engraved text */}
+        {engraving ? (
+          <text x="120" y={hasStone ? 176 : 172}
+            textAnchor="middle" dominantBaseline="middle"
+            fontSize={engraving.length > 7 ? 10 : engraving.length > 4 ? 13 : 16}
+            fill={ox} fontFamily="'Marcellus',serif" letterSpacing="2.5" opacity=".9">
+            {engraving.toUpperCase()}
+          </text>
+        ) : (
+          <text x="120" y="165" textAnchor="middle" fontSize="9.5" fill={ox} opacity=".32"
+            fontFamily="'Jost',sans-serif" letterSpacing="1.5">YOUR TEXT</text>
+        )}
+      </svg>
+    </div>
   )
 
-  // bracelet / cuff
-  if (piece === 'bracelet' || piece === 'cuff') return (
-    <svg viewBox="0 0 200 160" className="engrave-svg">
-      <defs>
-        <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor={hi}/><stop offset="100%" stopColor={c}/>
-        </linearGradient>
-      </defs>
-      <ellipse cx="100" cy="126" rx="70" ry="22" fill={c} opacity=".2"/>
-      <path d="M30 70 Q30 30 100 30 Q170 30 170 70 L170 100 Q170 140 100 140 Q30 140 30 100Z" fill="url(#bg)" stroke={ox} strokeWidth="1.2"/>
-      <path d="M30 84 Q30 50 100 50 Q170 50 170 84" stroke={hi} strokeWidth="1" opacity=".5"/>
-      {hasStone && <circle cx="100" cy="38" r="7" fill={sf} stroke={ox} strokeWidth="1"/>}
-      {engraving && <text x="100" y="110" textAnchor="middle" dominantBaseline="middle" fontSize={engraving.length > 6 ? 10 : 13} fill={ox} fontFamily="'Marcellus',serif" letterSpacing="3">{engraving.toUpperCase()}</text>}
-      {!engraving && <text x="100" y="110" textAnchor="middle" fontSize="9" fill={ox} opacity=".4" fontFamily="'Jost',sans-serif" letterSpacing="1.5">YOUR TEXT</text>}
-    </svg>
-  )
+  // ── Bracelet / cuff ──────────────────────────────────────────────────────────
+  if (piece === 'bracelet' || piece === 'cuff') {
+    const isCuff = piece === 'cuff'
+    return (
+      <div ref={wrapRef} className="engrave-pulse-wrap">
+        <svg viewBox="0 0 220 190" className="engrave-svg">
+          <defs>
+            <radialGradient id="brmg" cx="40%" cy="28%" r="65%">
+              <stop offset="0%" stopColor={hi}/>
+              <stop offset="55%" stopColor={c}/>
+              <stop offset="100%" stopColor={ox}/>
+            </radialGradient>
+            <linearGradient id="brdg" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor={c}/>
+              <stop offset="100%" stopColor={ox} stopOpacity=".7"/>
+            </linearGradient>
+            <filter id="brf">
+              <feDropShadow dx="0" dy="5" stdDeviation="10" floodColor="#1c1c1a" floodOpacity=".22"/>
+            </filter>
+          </defs>
 
-  // earrings
+          {/* Ground shadow */}
+          <ellipse cx="110" cy="182" rx="72" ry="6" fill="#1c1c1a" opacity=".07"/>
+
+          {/* Bracelet body — oval band from slightly above */}
+          <path d="M22 85 Q22 38 110 38 Q198 38 198 85 L198 110 Q198 157 110 157 Q22 157 22 110Z"
+            fill="url(#brmg)" filter="url(#brf)"/>
+
+          {/* Inner cavity (opening of bracelet) */}
+          <path d="M52 85 Q52 62 110 62 Q168 62 168 85 L168 110 Q168 133 110 133 Q52 133 52 110Z"
+            fill="#1c1b18" opacity=".85"/>
+          <path d="M52 85 Q52 62 110 62 Q168 62 168 85 L168 110 Q168 133 110 133 Q52 133 52 110Z"
+            fill="none" stroke={ox} strokeWidth=".9" opacity=".35"/>
+
+          {/* Top edge highlight */}
+          <path d="M22 85 Q22 38 110 38 Q198 38 198 85" fill="none" stroke={hi} strokeWidth="1.8" opacity=".55"/>
+
+          {/* Cuff has a wider face band */}
+          {isCuff && <>
+            <path d="M22 97 Q22 50 110 50 Q198 50 198 97" fill="none" stroke={hi} strokeWidth="1" opacity=".25"/>
+            <path d="M22 98 Q22 50 110 50 Q198 50 198 98 L198 85 Q198 38 110 38 Q22 38 22 85Z" fill={hi} opacity=".07"/>
+          </>}
+
+          {/* Stone on top */}
+          {hasStone && <>
+            <circle cx="110" cy="46" r="10" fill={sf} stroke={ox} strokeWidth="1.3" opacity=".92"/>
+            <circle cx="107" cy="43" r="3.5" fill="#fff" opacity=".28"/>
+          </>}
+
+          {/* Symbol on inner band face (front visible portion) */}
+          <SymbolMark symbol={symbol} cx={110} cy={hasStone ? 86 : 88} size={24} color={ox}/>
+
+          {/* Engraved text */}
+          {engraving ? (
+            <text x="110" y={hasStone ? 110 : 112}
+              textAnchor="middle" dominantBaseline="middle"
+              fontSize={engraving.length > 7 ? 11 : engraving.length > 4 ? 13 : 16}
+              fill={ox} fontFamily="'Marcellus',serif" letterSpacing="3" opacity=".9">
+              {engraving.toUpperCase()}
+            </text>
+          ) : (
+            <text x="110" y="100" textAnchor="middle" fontSize="10" fill={ox} opacity=".32"
+              fontFamily="'Jost',sans-serif" letterSpacing="1.5">YOUR TEXT</text>
+          )}
+        </svg>
+      </div>
+    )
+  }
+
+  // ── Earrings ─────────────────────────────────────────────────────────────────
   if (piece === 'earrings') return (
-    <svg viewBox="0 0 200 160" className="engrave-svg">
-      <defs>
-        <radialGradient id="eg"><stop offset="0%" stopColor={hi}/><stop offset="100%" stopColor={c}/></radialGradient>
-      </defs>
-      {[55, 145].map(cx => (
-        <g key={cx}>
-          <circle cx={cx} cy="32" r="11" fill="url(#eg)" stroke={ox} strokeWidth="1"/>
-          {hasStone && <circle cx={cx} cy="32" r="5" fill={sf}/>}
-          <line x1={cx} y1="43" x2={cx} y2="70" stroke={c} strokeWidth="2.5" strokeLinecap="round"/>
-          <ellipse cx={cx} cy="90" rx="12" ry="18" fill="url(#eg)" stroke={ox} strokeWidth="1"/>
-          {engraving && <text x={cx} y="90" textAnchor="middle" dominantBaseline="middle" fontSize="8" fill={ox} fontFamily="'Marcellus',serif">{engraving.slice(0,2).toUpperCase()}</text>}
-        </g>
-      ))}
-    </svg>
+    <div ref={wrapRef} className="engrave-pulse-wrap">
+      <svg viewBox="0 0 200 200" className="engrave-svg">
+        <defs>
+          <radialGradient id="emg" cx="38%" cy="32%" r="62%">
+            <stop offset="0%" stopColor={hi}/>
+            <stop offset="100%" stopColor={c}/>
+          </radialGradient>
+          <filter id="efs">
+            <feDropShadow dx="0" dy="4" stdDeviation="7" floodColor="#1c1c1a" floodOpacity=".2"/>
+          </filter>
+        </defs>
+
+        {[52, 148].map(cx => (
+          <g key={cx} filter="url(#efs)">
+            {/* Post + butterfly */}
+            <circle cx={cx} cy="22" r="8" fill="url(#emg)" stroke={ox} strokeWidth=".9"/>
+            {hasStone && <>
+              <circle cx={cx} cy="22" r="4" fill={sf} opacity=".9"/>
+              <circle cx={cx-1.5} cy="20" r="1.5" fill="#fff" opacity=".3"/>
+            </>}
+            {!hasStone && <circle cx={cx} cy="22" r="2.5" fill={hi} opacity=".7"/>}
+
+            {/* Connector wire */}
+            <line x1={cx} y1="30" x2={cx} y2="52" stroke={c} strokeWidth="2.5" strokeLinecap="round"/>
+
+            {/* Drop body */}
+            <path d={`M${cx-14} 72 Q${cx-16} 98 ${cx} 122 Q${cx+16} 98 ${cx+14} 72 Q${cx+10} 58 ${cx} 56 Q${cx-10} 58 ${cx-14} 72Z`}
+              fill="url(#emg)" stroke={ox} strokeWidth=".8"/>
+
+            {/* Highlight on drop */}
+            <path d={`M${cx-7} 70 Q${cx-9} 88 ${cx-2} 108`} stroke={hi} strokeWidth="1.2" fill="none" opacity=".45"/>
+
+            {/* Symbol on drop face */}
+            <SymbolMark symbol={symbol} cx={cx} cy={88} size={17} color={ox}/>
+
+            {/* Engraved text on drop */}
+            {engraving && (
+              <text x={cx} y="112" textAnchor="middle" fontSize="9" fill={ox}
+                fontFamily="'Marcellus',serif" letterSpacing="1" opacity=".85">
+                {engraving.slice(0, 2).toUpperCase()}
+              </text>
+            )}
+          </g>
+        ))}
+      </svg>
+    </div>
   )
 
-  // default: pendant / cross
+  // ── Pendant / Armenian cross (default) ───────────────────────────────────────
   return (
-    <svg viewBox="0 0 160 240" className="engrave-svg">
-      <defs>
-        <radialGradient id="pg" cx="38%" cy="30%" r="65%">
-          <stop offset="0%" stopColor={hi}/><stop offset="100%" stopColor={c}/>
-        </radialGradient>
-        <filter id="ps"><feDropShadow dx="0" dy="3" stdDeviation="6" floodColor="#1c1c1a" floodOpacity=".2"/></filter>
-      </defs>
-      <path d="M80 22 Q65 30 64 40" stroke={c} strokeWidth="1.8" fill="none" strokeLinecap="round" opacity=".6"/>
-      <path d="M80 22 Q95 30 96 40" stroke={c} strokeWidth="1.8" fill="none" strokeLinecap="round" opacity=".6"/>
-      <rect x="75" y="38" width="10" height="16" rx="3" fill={c} opacity=".7"/>
-      <g filter="url(#ps)">
-        <rect x="68" y="52" width="24" height="148" rx="5" fill="url(#pg)"/>
-        <rect x="32" y="108" width="96" height="24" rx="5" fill="url(#pg)"/>
-        <polygon points="64,58 80,46 96,58 91,66 69,66" fill="url(#pg)"/>
-        <polygon points="64,192 80,204 96,192 91,184 69,184" fill="url(#pg)"/>
-        <polygon points="40,104 28,120 40,136 48,130 48,110" fill="url(#pg)"/>
-        <polygon points="120,104 132,120 120,136 112,130 112,110" fill="url(#pg)"/>
-        <rect x="74" y="54" width="7" height="144" rx="3" fill={hi} opacity=".3"/>
-      </g>
-      {/* symbol in cross intersection */}
-      {symbol === 'cross' && <>
-        <line x1="80" y1="108" x2="80" y2="132" stroke={ox} strokeWidth="1.5" opacity=".7"/>
-        <line x1="68" y1="120" x2="92" y2="120" stroke={ox} strokeWidth="1.5" opacity=".7"/>
-        <circle cx="80" cy="120" r="5" fill="none" stroke={ox} strokeWidth="1" opacity=".6"/>
-      </>}
-      {symbol === 'knot' && <path d={`M71,112 Q80,103 89,112 Q98,121 89,130 Q80,139 71,130 Q62,121 71,112Z`} fill="none" stroke={ox} strokeWidth="1.3" opacity=".6"/>}
-      {symbol === 'pom' && <>
-        <circle cx="80" cy="122" r="7" fill="none" stroke={ox} strokeWidth="1.2" opacity=".6"/>
-        <path d="M77,115 L80,109 L83,115" stroke={ox} strokeWidth="1.2" fill="none" opacity=".6"/>
-      </>}
-      {hasStone && <circle cx="80" cy="168" r="8" fill={sf} stroke={ox} strokeWidth="1.2"/>}
-      {engraving && <text x="80" y={hasStone ? 148 : 155} textAnchor="middle" dominantBaseline="middle" fontSize={engraving.length > 4 ? 11 : 14} fill={ox} fontFamily="'Marcellus',serif" letterSpacing="2">{engraving.toUpperCase()}</text>}
-      {!engraving && <text x="80" y="150" textAnchor="middle" fontSize="8" fill={ox} opacity=".4" fontFamily="'Jost',sans-serif" letterSpacing="1.5">ADD TEXT</text>}
-    </svg>
+    <div ref={wrapRef} className="engrave-pulse-wrap">
+      <svg viewBox="0 0 160 260" className="engrave-svg">
+        <defs>
+          <radialGradient id="pmg" cx="38%" cy="30%" r="65%">
+            <stop offset="0%" stopColor={hi}/>
+            <stop offset="55%" stopColor={c}/>
+            <stop offset="100%" stopColor={ox}/>
+          </radialGradient>
+          <filter id="pfs">
+            <feDropShadow dx="0" dy="4" stdDeviation="8" floodColor="#1c1c1a" floodOpacity=".22"/>
+          </filter>
+          <filter id="pes">
+            <feDropShadow dx="0" dy="1" stdDeviation="1.5" floodColor={ox} floodOpacity=".5"/>
+          </filter>
+        </defs>
+
+        {/* Chain */}
+        <path d="M80 24 Q62 32 60 44" stroke={c} strokeWidth="2" fill="none" strokeLinecap="round" opacity=".65"/>
+        <path d="M80 24 Q98 32 100 44" stroke={c} strokeWidth="2" fill="none" strokeLinecap="round" opacity=".65"/>
+        {[0.25, 0.5, 0.75].map(t => {
+          const lx = 80 + (60 - 80) * t + (62 - 80) * t * (1-t) * 2
+          const ly = 24 + (44 - 24) * t + (32 - 24) * t * (1-t) * 2
+          return <circle key={`l${t}`} cx={lx} cy={ly} r="1.6" fill={c} opacity=".55"/>
+        })}
+        {[0.25, 0.5, 0.75].map(t => {
+          const rx = 80 + (100 - 80) * t + (98 - 80) * t * (1-t) * 2
+          const ry = 24 + (44 - 24) * t + (32 - 24) * t * (1-t) * 2
+          return <circle key={`r${t}`} cx={rx} cy={ry} r="1.6" fill={c} opacity=".55"/>
+        })}
+        <path d="M80 24 Q62 32 60 44" stroke={hi} strokeWidth=".8" fill="none" strokeLinecap="round" opacity=".4"/>
+        <path d="M80 24 Q98 32 100 44" stroke={hi} strokeWidth=".8" fill="none" strokeLinecap="round" opacity=".4"/>
+
+        {/* Bail */}
+        <rect x="74" y="42" width="12" height="18" rx="4" fill="url(#pmg)"/>
+        <rect x="76" y="44" width="8" height="14" rx="2.5" fill="none" stroke={hi} strokeWidth=".8" opacity=".55"/>
+
+        {/* Cross body — Armenian cross with flared tips */}
+        <g filter="url(#pfs)">
+          <rect x="68" y="58" width="24" height="152" rx="5" fill="url(#pmg)"/>
+          <rect x="30" y="114" width="100" height="24" rx="5" fill="url(#pmg)"/>
+          {/* Flared tips */}
+          <polygon points="64,64 80,52 96,64 91,72 69,72" fill="url(#pmg)"/>
+          <polygon points="64,202 80,214 96,202 91,194 69,194" fill="url(#pmg)"/>
+          <polygon points="38,110 26,126 38,142 46,136 46,116" fill="url(#pmg)"/>
+          <polygon points="122,110 134,126 122,142 114,136 114,116" fill="url(#pmg)"/>
+          {/* Highlight stripe */}
+          <rect x="74" y="60" width="6" height="148" rx="2" fill={hi} opacity=".3"/>
+          <rect x="32" y="119" width="94" height="5" rx="2" fill={hi} opacity=".22"/>
+        </g>
+
+        {/* Armenian symbol in cross intersection — large, clear */}
+        <SymbolMark symbol={symbol} cx={80} cy={126} size={26} color={ox}/>
+
+        {/* Stone below symbol */}
+        {hasStone && <>
+          <circle cx="80" cy="184" r="10" fill={sf} stroke={ox} strokeWidth="1.2" opacity=".92"/>
+          <circle cx="77" cy="181" r="3" fill="#fff" opacity=".28"/>
+        </>}
+
+        {/* Engraved initials */}
+        {engraving ? (
+          <text x="80" y={hasStone ? 160 : 168}
+            textAnchor="middle" dominantBaseline="middle"
+            fontSize={engraving.length > 4 ? 12 : engraving.length > 2 ? 15 : 19}
+            fill={ox} fontFamily="'Marcellus',serif" letterSpacing="2.5"
+            filter="url(#pes)" opacity=".88">
+            {engraving.toUpperCase()}
+          </text>
+        ) : (
+          <text x="80" y="162" textAnchor="middle" fontSize="9" fill={ox} opacity=".32"
+            fontFamily="'Jost',sans-serif" letterSpacing="1.5">ADD TEXT</text>
+        )}
+      </svg>
+    </div>
   )
 }

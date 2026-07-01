@@ -643,7 +643,11 @@ h1, h2 { font-weight: 400; }
 /* engraving layout */
 .engrave-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; margin-bottom: 32px; }
 .engrave-preview { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; background: #f4f3f0; }
-.engrave-svg { width: 100%; max-width: 180px; height: auto; filter: drop-shadow(0 6px 20px rgba(28,28,26,.15)); transition: all .3s; }
+.engrave-pulse-wrap { display: flex; align-items: center; justify-content: center; }
+.engrave-svg { width: 100%; max-width: 200px; height: auto; filter: drop-shadow(0 6px 20px rgba(28,28,26,.15)); animation: engraveIdle 4s ease-in-out infinite; }
+@keyframes engraveIdle { 0%,100% { filter: drop-shadow(0 6px 20px rgba(28,28,26,.15)) brightness(1); } 50% { filter: drop-shadow(0 10px 30px rgba(28,28,26,.22)) brightness(1.05); } }
+@keyframes engravePulse { 0% { opacity:.6; transform:scale(.96); } 60% { opacity:1; transform:scale(1.02); } 100% { opacity:1; transform:scale(1); } }
+.engrave-pulse-wrap.engrave-pulse .engrave-svg { animation: engravePulse .5s ease-out both, engraveIdle 4s ease-in-out 0.5s infinite; }
 .engrave-controls { padding-top: 4px; }
 
 /* symbol row buttons */
