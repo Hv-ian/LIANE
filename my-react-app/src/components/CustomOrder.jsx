@@ -11,30 +11,14 @@ const PIECE_TYPES = [
     label: 'Ring',
     sub: 'Band / signet',
     engravingNote: 'Engraved on the inner band — a secret message only you know.',
-    svg: (
-      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="40" cy="54" rx="22" ry="10" stroke="currentColor" strokeWidth="1.6" fill="currentColor" fillOpacity=".08"/>
-        <rect x="18" y="28" width="44" height="26" rx="2" fill="currentColor" fillOpacity=".12" stroke="currentColor" strokeWidth="1.4"/>
-        <ellipse cx="40" cy="28" rx="22" ry="10" stroke="currentColor" strokeWidth="1.6" fill="currentColor" fillOpacity=".2"/>
-        <ellipse cx="40" cy="28" rx="12" ry="5" fill="currentColor" fillOpacity=".08" stroke="currentColor" strokeWidth=".9" opacity=".5"/>
-      </svg>
-    ),
+    img: ringImg,
   },
   {
     id: 'bracelet',
     label: 'Bracelet',
     sub: 'Cuff / bangle',
     engravingNote: 'Engraved on the outer face — visible, personal, and permanent.',
-    svg: (
-      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 40 Q12 18 40 18 Q68 18 68 40 Q68 62 40 62 Q12 62 12 40Z" stroke="currentColor" strokeWidth="1.6" fill="currentColor" fillOpacity=".08"/>
-        <path d="M18 40 Q18 24 40 24 Q62 24 62 40" fill="none" stroke="currentColor" strokeWidth="1" opacity=".35"/>
-        {[0, 72, 144, 216, 288].map(a => {
-          const r = 26, x = 40 + r * Math.cos(a * Math.PI / 180), y = 40 + r * Math.sin(a * Math.PI / 180)
-          return <circle key={a} cx={x} cy={y} r="2.2" fill="currentColor" opacity=".3"/>
-        })}
-      </svg>
-    ),
+    img: braceletImg,
   },
 ]
 
@@ -193,13 +177,17 @@ export default function CustomOrder({ onBack }) {
               <div className="piece-grid piece-grid-2">
                 {PIECE_TYPES.map(pt => (
                   <button key={pt.id}
-                    className={`piece-card piece-card-large ${piece === pt.id ? 'active' : ''}`}
+                    className={`piece-card piece-card-photo ${piece === pt.id ? 'active' : ''}`}
                     onClick={() => setPiece(pt.id)}
                   >
-                    <div className="piece-svg">{pt.svg}</div>
-                    <div className="piece-label">{pt.label}</div>
-                    <div className="piece-sub">{pt.sub}</div>
-                    {piece === pt.id && <div className="piece-check">✓</div>}
+                    <div className="piece-photo-wrap">
+                      <img src={pt.img} alt={pt.label} className="piece-photo" />
+                      {piece === pt.id && <div className="piece-check">✓</div>}
+                    </div>
+                    <div className="piece-card-foot">
+                      <div className="piece-label">{pt.label}</div>
+                      <div className="piece-sub">{pt.sub}</div>
+                    </div>
                   </button>
                 ))}
               </div>
