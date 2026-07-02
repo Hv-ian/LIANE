@@ -653,13 +653,13 @@ h1, h2 { font-weight: 400; }
 
 /* piece grid — 2-column photo cards for ring/bracelet */
 .piece-grid-2 { grid-template-columns: 1fr 1fr; max-width: 640px; margin: 0 auto 8px; }
-.piece-card-photo { padding: 0; overflow: hidden; text-align: left; }
+.piece-card-photo { padding: 0; overflow: hidden; text-align: left; background: #fff; }
 .piece-card-photo.active { border-color: #1c1c1a; box-shadow: 0 0 0 2px #1c1c1a; }
-.piece-photo-wrap { position: relative; aspect-ratio: 3/2; overflow: hidden; }
-.piece-photo { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
-.piece-card-photo:hover .piece-photo { transform: scale(1.04); }
+.piece-photo-wrap { position: relative; aspect-ratio: 1/1; background: #f5f4f1; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 24px; }
+.piece-photo-png { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform .5s ease; filter: drop-shadow(0 8px 24px rgba(28,28,26,.18)); }
+.piece-card-photo:hover .piece-photo-png { transform: scale(1.06); }
 .piece-card-photo .piece-check { position: absolute; top: 10px; right: 10px; background: #1c1c1a; color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
-.piece-card-foot { padding: 14px 16px 16px; background: #fff; }
+.piece-card-foot { padding: 14px 16px 16px; border-top: 1px solid #f0eee9; }
 .piece-card-photo .piece-label { font-family: 'Marcellus', serif; font-size: 17px; color: #1c1c1a; margin-bottom: 3px; }
 .piece-card-photo .piece-sub { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #8a8780; }
 

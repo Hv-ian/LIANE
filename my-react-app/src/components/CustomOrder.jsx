@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { formatPrice } from '../data/products'
 import ringImg from '../assets/men-rings.jpg'
 import braceletImg from '../assets/men-bracelet.jpg'
+import ringPng from '../assets/ring-product.png'
+import braceletPng from '../assets/bracelet-product.png'
 
 const STEPS = ['Piece', 'Stone', 'Engrave', 'Contact']
 
@@ -12,6 +14,7 @@ const PIECE_TYPES = [
     sub: 'Band / signet',
     engravingNote: 'Engraved on the inner band — a secret message only you know.',
     img: ringImg,
+    png: ringPng,
   },
   {
     id: 'bracelet',
@@ -19,6 +22,7 @@ const PIECE_TYPES = [
     sub: 'Cuff / bangle',
     engravingNote: 'Engraved on the outer face — visible, personal, and permanent.',
     img: braceletImg,
+    png: braceletPng,
   },
 ]
 
@@ -181,7 +185,7 @@ export default function CustomOrder({ onBack }) {
                     onClick={() => setPiece(pt.id)}
                   >
                     <div className="piece-photo-wrap">
-                      <img src={pt.img} alt={pt.label} className="piece-photo" />
+                      <img src={pt.png} alt={pt.label} className="piece-photo-png" />
                       {piece === pt.id && <div className="piece-check">✓</div>}
                     </div>
                     <div className="piece-card-foot">
