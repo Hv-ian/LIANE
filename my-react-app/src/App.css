@@ -177,6 +177,7 @@ h1, h2 { font-weight: 400; }
   flex: 1;
   justify-content: flex-end;
 }
+.nav-icon-btn { cursor: pointer; display: flex; align-items: center; }
 .cart-icon { position: relative; cursor: pointer; display: flex; align-items: center; }
 .cart-count {
   position: absolute;
