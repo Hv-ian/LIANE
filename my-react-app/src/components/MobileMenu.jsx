@@ -13,7 +13,8 @@ export default function MobileMenu({ open, onClose, onNavigate }) {
           <div className="mobile-link" onClick={() => onNavigate('shop', null, 'silver')}>Silver &amp; Stone</div>
           <div className="mobile-link" onClick={() => onNavigate('sets')}>Sets</div>
           <div className="mobile-link" onClick={() => onNavigate('heritage')}>Heritage</div>
-          <div className="mobile-link last" onClick={() => onNavigate('about')}>About</div>
+          <div className="mobile-link" onClick={() => onNavigate('shop')}>Collection</div>
+          <div className="mobile-link last" onClick={() => onNavigate('loyalty')}>Loyalty programme</div>
         </div>
       </div>
     </>

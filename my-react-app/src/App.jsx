@@ -12,6 +12,7 @@ import Owner from './components/Owner'
 import Sets from './components/Sets'
 import Heritage from './components/Heritage'
 import CustomOrder from './components/CustomOrder'
+import Loyalty from './components/Loyalty'
 import './App.css'
 
 function App() {
@@ -101,6 +102,7 @@ function App() {
         {screen === 'custom' && <CustomOrder onBack={() => navigate('home')} />}
         {screen === 'checkout' && <Checkout cart={cart} onBack={() => navigate('shop')} />}
         {screen === 'owner' && <Owner onBack={() => navigate('home')} />}
+        {screen === 'loyalty' && <Loyalty onNavigate={navigate} />}
 
         {screen === 'home' && (
           <footer className="site-footer">
@@ -119,9 +121,12 @@ function App() {
                 </div>
               </div>
               <div>
-                <div className="footer-head">Help</div>
+                <div className="footer-head">Company</div>
                 <div className="footer-list">
-                  <span>Shipping</span><span>Returns</span><span>Sizing guide</span><span>Care</span>
+                  <span className="footer-link" onClick={() => navigate('about')}>About LIANÉ</span>
+                  <span className="footer-link" onClick={() => navigate('loyalty')}>Loyalty Circle</span>
+                  <span>Shipping</span>
+                  <span>Returns</span>
                 </div>
               </div>
               <div>
