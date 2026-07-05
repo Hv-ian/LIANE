@@ -1,7 +1,9 @@
 import { useCurrency } from '../context/CurrencyContext'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Sets({ sets, products, onOpen, onAddSet }) {
   const { formatPrice } = useCurrency()
+  const { t } = useLanguage()
   return (
     <div className="sets-page">
       <div className="section-head">
@@ -29,7 +31,7 @@ export default function Sets({ sets, products, onOpen, onAddSet }) {
                     </div>
                   ))}
                 </div>
-                <button className="liane-btn full" onClick={() => onAddSet(items)}>Add set to cart — {formatPrice(total)}</button>
+                <button className="liane-btn full" onClick={() => onAddSet(items)}>{t('addSetToCart')} — {formatPrice(total)}</button>
               </div>
             </div>
           )

@@ -1,4 +1,7 @@
+import { useLanguage } from '../context/LanguageContext'
+
 export default function MobileMenu({ open, onClose, onNavigate }) {
+  const { t } = useLanguage()
   return (
     <>
       <div className={`drawer-overlay ${open ? 'open' : ''}`} onClick={onClose}></div>
@@ -8,13 +11,13 @@ export default function MobileMenu({ open, onClose, onNavigate }) {
           <div className="close-x" onClick={onClose}>×</div>
         </div>
         <div className="mobile-menu-links">
-          <div className="mobile-link" onClick={() => onNavigate('shop', 'women')}>Women</div>
-          <div className="mobile-link" onClick={() => onNavigate('shop', 'men')}>Men</div>
-          <div className="mobile-link" onClick={() => onNavigate('shop', null, 'silver')}>Silver &amp; Stone</div>
-          <div className="mobile-link" onClick={() => onNavigate('sets')}>Sets</div>
-          <div className="mobile-link" onClick={() => onNavigate('heritage')}>Heritage</div>
-          <div className="mobile-link" onClick={() => onNavigate('shop')}>Collection</div>
-          <div className="mobile-link last" onClick={() => onNavigate('loyalty')}>Loyalty programme</div>
+          <div className="mobile-link" onClick={() => onNavigate('shop', 'women')}>{t('women')}</div>
+          <div className="mobile-link" onClick={() => onNavigate('shop', 'men')}>{t('men')}</div>
+          <div className="mobile-link" onClick={() => onNavigate('shop', null, 'silver')}>{t('silverStone')}</div>
+          <div className="mobile-link" onClick={() => onNavigate('sets')}>{t('sets')}</div>
+          <div className="mobile-link" onClick={() => onNavigate('heritage')}>{t('heritage')}</div>
+          <div className="mobile-link" onClick={() => onNavigate('shop')}>{t('collection')}</div>
+          <div className="mobile-link last" onClick={() => onNavigate('loyalty')}>{t('loyaltyCircle')}</div>
         </div>
       </div>
     </>

@@ -1,4 +1,5 @@
 import { useCurrency } from '../context/CurrencyContext'
+import { useLanguage } from '../context/LanguageContext'
 import PersonalizationPanel from './PersonalizationPanel'
 
 const metals = [
@@ -10,10 +11,11 @@ const accordion = [{ label: 'Details & materials' }, { label: 'Sizing & fit' }, 
 
 export default function Product({ product, onBack, onAdd }) {
   const { formatPrice } = useCurrency()
+  const { t } = useLanguage()
   if (!product) return null
   return (
     <div className="product-page">
-      <div className="back-link" onClick={onBack}>← Back to collection</div>
+      <div className="back-link" onClick={onBack}>{t('back')}</div>
 
       {product.personalizable && (
         <div className="pers-flag">✦ This piece can be personalised</div>
@@ -42,7 +44,7 @@ export default function Product({ product, onBack, onAdd }) {
           </div>
 
           <div className="prod-actions">
-            <button className="liane-btn flex" onClick={() => onAdd(product)}>Add to cart — {formatPrice(product.price)}</button>
+            <button className="liane-btn flex" onClick={() => onAdd(product)}>{t('addToCartBtn')} — {formatPrice(product.price)}</button>
             <button className="wish-btn">♡</button>
           </div>
 

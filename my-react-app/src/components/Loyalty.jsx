@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useCurrency } from '../context/CurrencyContext'
+import { useLanguage } from '../context/LanguageContext'
 
 // ── Demo data ─────────────────────────────────────────────────────────────────
 const SAMPLE_ORDERS_ACTIVE = [
@@ -332,13 +333,14 @@ function BenefitsSection({ onNavigate }) {
 
 // ── Main component ────────────────────────────────────────────────────────────
 export default function Loyalty({ onNavigate }) {
+  const { t } = useLanguage()
   const [tab, setTab] = useState('orders')
 
   const TABS = [
-    { id: 'orders',  label: 'My Orders' },
-    { id: 'history', label: 'History' },
-    { id: 'returns', label: 'Returns' },
-    { id: 'circle',  label: 'Circle Benefits' },
+    { id: 'orders',  label: t('myOrders') },
+    { id: 'history', label: t('history') },
+    { id: 'returns', label: t('returns') },
+    { id: 'circle',  label: t('benefits') },
   ]
 
   return (
@@ -347,8 +349,8 @@ export default function Loyalty({ onNavigate }) {
       {/* Account hero */}
       <div className="loyalty-hero">
         <div className="loyalty-hero-inner">
-          <div className="eyebrow" style={{ color: '#c9b88a', letterSpacing: '4px' }}>Your account</div>
-          <h1>The LIANÉ Circle</h1>
+          <div className="eyebrow" style={{ color: '#c9b88a', letterSpacing: '4px' }}>{t('yourAccount')}</div>
+          <h1>{t('theLianeCircle')}</h1>
           <div className="loyalty-hero-member">
             <div className="member-tier-gem" style={{ background: 'radial-gradient(circle at 35% 30%, #e2e0db, #c8c5bf)' }} />
             <div>

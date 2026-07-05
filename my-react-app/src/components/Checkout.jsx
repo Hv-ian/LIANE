@@ -1,7 +1,9 @@
 import { useCurrency } from '../context/CurrencyContext'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Checkout({ cart, onBack }) {
   const { formatPrice } = useCurrency()
+  const { t } = useLanguage()
   const subtotal = cart.reduce((a, c) => a + c.price * c.qty, 0)
   const free = subtotal >= 1500 || subtotal === 0
   const shipping = free ? 0 : 75
@@ -10,33 +12,33 @@ export default function Checkout({ cart, onBack }) {
   return (
     <div className="checkout-page">
       <div className="checkout-form">
-        <div className="back-link" onClick={onBack}>← Continue shopping</div>
+        <div className="back-link" onClick={onBack}>{t('back')}</div>
         <h1>Checkout</h1>
 
-        <div className="step-label">01 · Contact</div>
-        <input className="ck-input full" placeholder="Email address" />
+        <div className="step-label">01 · {t('email')}</div>
+        <input className="ck-input full" placeholder={t('email')} />
 
-        <div className="step-label">02 · Shipping address</div>
+        <div className="step-label">02 · {t('shipping')}</div>
         <div className="ck-row2">
-          <input className="ck-input" placeholder="First name" />
-          <input className="ck-input" placeholder="Last name" />
+          <input className="ck-input" placeholder={t('firstName')} />
+          <input className="ck-input" placeholder={t('lastName')} />
         </div>
-        <input className="ck-input full" placeholder="Address" />
+        <input className="ck-input full" placeholder={t('address')} />
         <div className="ck-row-postal">
-          <input className="ck-input" placeholder="Postal code" />
-          <input className="ck-input" placeholder="City" />
+          <input className="ck-input" placeholder={t('postalCode')} />
+          <input className="ck-input" placeholder={t('city')} />
         </div>
 
         <div className="step-label">03 · Payment</div>
-        <input className="ck-input full" placeholder="Card number" />
+        <input className="ck-input full" placeholder={t('cardNumber')} />
         <div className="ck-row2">
-          <input className="ck-input" placeholder="MM / YY" />
-          <input className="ck-input" placeholder="CVC" />
+          <input className="ck-input" placeholder={t('expiry')} />
+          <input className="ck-input" placeholder={t('cvc')} />
         </div>
-        <button className="liane-btn full">Place order · {formatPrice(total)}</button>
+        <button className="liane-btn full">{t('placeOrder')} · {formatPrice(total)}</button>
       </div>
       <div className="checkout-summary">
-        <div className="summary-label">Order summary</div>
+        <div className="summary-label">{t('orderSummary')}</div>
         {cart.map(c => (
           <div className="summary-item" key={c.id}>
             <div className="summary-img"><img src={c.img} alt="" /><span className="qty-badge">{c.qty}</span></div>
@@ -48,9 +50,9 @@ export default function Checkout({ cart, onBack }) {
           </div>
         ))}
         <div className="summary-totals">
-          <div className="summary-row"><span>Subtotal</span><span>{formatPrice(subtotal)}</span></div>
-          <div className="summary-row"><span>Shipping</span><span>{free ? 'Free' : formatPrice(shipping)}</span></div>
-          <div className="summary-row total"><span>Total</span><span>{formatPrice(total)}</span></div>
+          <div className="summary-row"><span>{t('subtotal')}</span><span>{formatPrice(subtotal)}</span></div>
+          <div className="summary-row"><span>{t('shipping')}</span><span>{free ? t('free') : formatPrice(shipping)}</span></div>
+          <div className="summary-row total"><span>{t('total')}</span><span>{formatPrice(total)}</span></div>
         </div>
       </div>
     </div>

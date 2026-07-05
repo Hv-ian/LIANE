@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useCurrency } from '../context/CurrencyContext'
+import { useLanguage } from '../context/LanguageContext'
 import ringImg from '../assets/men-rings.jpg'
 import braceletImg from '../assets/men-bracelet.jpg'
 import ringPng from '../assets/ring-product.png'
@@ -120,6 +121,7 @@ function EngravingPreview({ piece, engraving }) {
 
 // ── Main component ────────────────────────────────────────────────────────────
 export default function CustomOrder({ onBack }) {
+  const { t } = useLanguage()
   const [step, setStep]           = useState(0)
   const [piece, setPiece]         = useState(null)
   const [stone, setStone]         = useState('none')
@@ -157,8 +159,8 @@ export default function CustomOrder({ onBack }) {
       <div className="custom-hero">
         <Sparks />
         <div className="custom-hero-text">
-          <div className="eyebrow" style={{ color: '#c9b88a', letterSpacing: '4px' }}>Made only for you</div>
-          <h1>Design your own piece</h1>
+          <div className="eyebrow" style={{ color: '#c9b88a', letterSpacing: '4px' }}>{t('customEyebrow')}</div>
+          <h1>{t('customH1')}</h1>
           <p>Choose your piece and stone. Add a name, an initial, a date. We engrave and hand-finish every custom order in recycled sterling silver.</p>
         </div>
         <div className="custom-hero-scroll" onClick={() => document.getElementById('custom-builder')?.scrollIntoView({ behavior: 'smooth' })}>

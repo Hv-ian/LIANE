@@ -46,6 +46,8 @@ const T = {
     privacy: 'Privacy · Terms · Cookies',
     // Custom order
     customTitle: 'Custom Order',
+    customEyebrow: 'Made only for you',
+    customH1: 'Design your own piece',
     back: '← Back',
     // Loyalty
     yourAccount: 'Your Account', theLianeCircle: 'The LIANÉ Circle',
@@ -89,6 +91,8 @@ const T = {
     rights: '© 2026 LIANÉ. Alla rättigheter förbehållna.',
     privacy: 'Integritet · Villkor · Cookies',
     customTitle: 'Specialbeställning',
+    customEyebrow: 'Bara för dig',
+    customH1: 'Designa ditt eget smycke',
     back: '← Tillbaka',
     yourAccount: 'Ditt konto', theLianeCircle: 'LIANÉ-cirkeln',
     myOrders: 'Mina beställningar', history: 'Historik', returns: 'Returer', benefits: 'Förmåner',
