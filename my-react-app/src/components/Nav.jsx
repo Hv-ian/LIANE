@@ -1,11 +1,23 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useCurrency, CURRENCIES } from '../context/CurrencyContext'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMenu }) {
   const [openMenu, setOpenMenu] = useState(null)
+  const [currencyOpen, setCurrencyOpen] = useState(false)
+  const currencyRef = useRef(null)
   const { currency, setCurrency } = useCurrency()
   const { lang, setLang, t } = useLanguage()
+
+  useEffect(() => {
+    function handleClick(e) {
+      if (currencyRef.current && !currencyRef.current.contains(e.target)) {
+        setCurrencyOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
 
   return (
     <>
@@ -19,16 +31,24 @@ export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMen
             <button className={lang === 'sv' ? 'active' : ''} onClick={() => setLang('sv')}>SV</button>
           </div>
           <span className="util-divider">·</span>
-          <select
-            className="currency-select"
-            value={currency}
-            onChange={e => setCurrency(e.target.value)}
-            aria-label="Select currency"
-          >
-            {CURRENCIES.map(c => (
-              <option key={c.code} value={c.code}>{c.code}</option>
-            ))}
-          </select>
+          <div className="currency-wrap" ref={currencyRef}>
+            <button className="currency-btn" onClick={() => setCurrencyOpen(o => !o)}>
+              {currency} <span className="currency-chevron">{currencyOpen ? '▴' : '▾'}</span>
+            </button>
+            {currencyOpen && (
+              <div className="currency-dropdown">
+                {CURRENCIES.map(c => (
+                  <div
+                    key={c.code}
+                    className={`currency-option${currency === c.code ? ' active' : ''}`}
+                    onClick={() => { setCurrency(c.code); setCurrencyOpen(false) }}
+                  >
+                    {c.code}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

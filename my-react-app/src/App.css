@@ -132,13 +132,27 @@ h1, h2 { font-weight: 400; }
 .lang-toggle button.active { color: #f4f3f0; }
 .lang-toggle button:hover { color: #f4f3f0; }
 .util-divider { color: #3d3b36; }
-.currency-select {
-  background: none; border: none; color: #a5a29b; font-size: 10px; letter-spacing: 1.5px;
-  text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; outline: none;
-  appearance: none; -webkit-appearance: none; padding: 0; transition: color .2s;
+.currency-wrap { position: relative; }
+.currency-btn {
+  background: none; border: 1px solid #3d3b36; border-radius: 3px; padding: 2px 7px;
+  color: #c8c5bf; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; font-family: 'Jost', sans-serif; display: flex; align-items: center; gap: 4px;
+  transition: border-color .2s, color .2s;
 }
-.currency-select:hover, .currency-select:focus { color: #f4f3f0; }
-.currency-select option { background: #1c1c1a; color: #f4f3f0; }
+.currency-btn:hover { border-color: #6b6860; color: #f4f3f0; }
+.currency-chevron { font-size: 8px; line-height: 1; }
+.currency-dropdown {
+  position: absolute; top: calc(100% + 6px); right: 0;
+  background: #1c1c1a; border: 1px solid #3d3b36; border-radius: 4px;
+  overflow: hidden; z-index: 100; min-width: 64px;
+}
+.currency-option {
+  padding: 7px 12px; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #a5a29b; cursor: pointer; transition: background .15s, color .15s;
+  font-family: 'Jost', sans-serif;
+}
+.currency-option:hover { background: #2a2926; color: #f4f3f0; }
+.currency-option.active { color: #f4f3f0; }
 
 .nav {
   display: flex;
