@@ -14,9 +14,64 @@ import Heritage from './components/Heritage'
 import CustomOrder from './components/CustomOrder'
 import Loyalty from './components/Loyalty'
 import { CurrencyProvider } from './context/CurrencyContext'
+import { LanguageProvider, useLanguage } from './context/LanguageContext'
 import './App.css'
 
-function App() {
+export default function App() {
+  return (
+    <LanguageProvider>
+      <CurrencyProvider>
+        <AppContent />
+      </CurrencyProvider>
+    </LanguageProvider>
+  )
+}
+
+function SiteFooter({ navigate }) {
+  const { t } = useLanguage()
+  return (
+    <footer className="site-footer">
+      <div className="footer-grid">
+        <div>
+          <div className="footer-logo">LIANÉ</div>
+          <p>{t('footerTagline')}</p>
+        </div>
+        <div>
+          <div className="footer-head">{t('shopCol')}</div>
+          <div className="footer-list">
+            <span className="footer-link" onClick={() => navigate('shop', null, 'silver')}>{t('silverAndStone')}</span>
+            <span className="footer-link" onClick={() => navigate('sets')}>{t('matchingSets')}</span>
+            <span className="footer-link" onClick={() => navigate('heritage')}>{t('armenianHeritage')}</span>
+            <span className="footer-link" onClick={() => navigate('custom')}>{t('customOrders')}</span>
+          </div>
+        </div>
+        <div>
+          <div className="footer-head">{t('companyCol')}</div>
+          <div className="footer-list">
+            <span className="footer-link" onClick={() => navigate('about')}>{t('aboutLiane')}</span>
+            <span className="footer-link" onClick={() => navigate('loyalty')}>{t('loyaltyCircle')}</span>
+            <span>{t('shipping')}</span>
+            <span>{t('returns')}</span>
+          </div>
+        </div>
+        <div>
+          <div className="footer-head">{t('newsletterCol')}</div>
+          <p>{t('newsletterNote')}</p>
+          <div className="newsletter-row">
+            <input placeholder={t('emailPlaceholder')} />
+            <button>{t('joinBtn')}</button>
+          </div>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <span>{t('rights')}</span>
+        <span>{t('privacy')} · <span className="owner-link" onClick={() => navigate('owner')}>Owner login</span></span>
+      </div>
+    </footer>
+  )
+}
+
+function AppContent() {
   const [screen, setScreen] = useState('home')
   const [gender, setGender] = useState(null)
   const [material, setMaterial] = useState(null)
@@ -77,7 +132,6 @@ function App() {
   const currentProduct = products.find(p => p.id === currentId)
 
   return (
-    <CurrencyProvider>
     <div className="app-root">
       <Nav
         cartCount={cartCount}
@@ -87,65 +141,17 @@ function App() {
       />
 
       <div className="app-body">
-        {screen === 'home' && (
-          <Home products={products} onNavigate={navigate} onOpen={openProduct} onAdd={addToCart} />
-        )}
-        {screen === 'shop' && (
-          <Shop products={products} gender={gender} material={material} onOpen={openProduct} onAdd={addToCart} />
-        )}
-        {screen === 'product' && (
-          <Product product={currentProduct} onBack={() => navigate('shop')} onAdd={addToCart} />
-        )}
+        {screen === 'home' && <Home products={products} onNavigate={navigate} onOpen={openProduct} onAdd={addToCart} />}
+        {screen === 'shop' && <Shop products={products} gender={gender} material={material} onOpen={openProduct} onAdd={addToCart} />}
+        {screen === 'product' && <Product product={currentProduct} onBack={() => navigate('shop')} onAdd={addToCart} />}
         {screen === 'about' && <About onNavigate={navigate} />}
-        {screen === 'sets' && (
-          <Sets sets={matchingSets} products={products} onOpen={openProduct} onAddSet={addSetToCart} />
-        )}
+        {screen === 'sets' && <Sets sets={matchingSets} products={products} onOpen={openProduct} onAddSet={addSetToCart} />}
         {screen === 'heritage' && <Heritage symbols={armenianSymbols} onNavigate={navigate} />}
         {screen === 'custom' && <CustomOrder onBack={() => navigate('home')} />}
         {screen === 'checkout' && <Checkout cart={cart} onBack={() => navigate('shop')} />}
         {screen === 'owner' && <Owner onBack={() => navigate('home')} />}
         {screen === 'loyalty' && <Loyalty onNavigate={navigate} />}
-
-        {screen === 'home' && (
-          <footer className="site-footer">
-            <div className="footer-grid">
-              <div>
-                <div className="footer-logo">LIANÉ</div>
-                <p>Fine jewelry, quietly made. Stockholm · est. 2026.</p>
-              </div>
-              <div>
-                <div className="footer-head">Shop</div>
-                <div className="footer-list">
-                  <span className="footer-link" onClick={() => navigate('shop', null, 'silver')}>Silver & Stone</span>
-                  <span className="footer-link" onClick={() => navigate('sets')}>Matching Sets</span>
-                  <span className="footer-link" onClick={() => navigate('heritage')}>Armenian Heritage</span>
-                  <span className="footer-link" onClick={() => navigate('custom')}>Custom Orders</span>
-                </div>
-              </div>
-              <div>
-                <div className="footer-head">Company</div>
-                <div className="footer-list">
-                  <span className="footer-link" onClick={() => navigate('about')}>About LIANÉ</span>
-                  <span className="footer-link" onClick={() => navigate('loyalty')}>Loyalty Circle</span>
-                  <span>Shipping</span>
-                  <span>Returns</span>
-                </div>
-              </div>
-              <div>
-                <div className="footer-head">Newsletter</div>
-                <p>Early access to new drops.</p>
-                <div className="newsletter-row">
-                  <input placeholder="Email" />
-                  <button>Join</button>
-                </div>
-              </div>
-            </div>
-            <div className="footer-bottom">
-              <span>© 2026 LIANÉ. All rights reserved.</span>
-              <span>Privacy · Terms · Cookies · <span className="owner-link" onClick={() => navigate('owner')}>Owner login</span></span>
-            </div>
-          </footer>
-        )}
+        {screen === 'home' && <SiteFooter navigate={navigate} />}
       </div>
 
       <CartDrawer
@@ -160,8 +166,5 @@ function App() {
 
       <MobileMenu open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} onNavigate={navigate} />
     </div>
-    </CurrencyProvider>
   )
 }
-
-export default App

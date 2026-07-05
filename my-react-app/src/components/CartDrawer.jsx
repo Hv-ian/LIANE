@@ -1,15 +1,18 @@
 import { useCurrency } from '../context/CurrencyContext'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function CartDrawer({ open, cart, onClose, onInc, onDec, onRemove, onCheckout }) {
   const { formatPrice } = useCurrency()
+  const { t } = useLanguage()
   const subtotal = cart.reduce((a, c) => a + c.price * c.qty, 0)
+  const itemCount = cart.reduce((a, c) => a + c.qty, 0)
 
   return (
     <>
       <div className={`drawer-overlay ${open ? 'open' : ''}`} onClick={onClose}></div>
       <div className={`cart-drawer ${open ? 'open' : ''}`}>
         <div className="cart-head">
-          <div className="cart-title">Your cart ({cart.reduce((a, c) => a + c.qty, 0)})</div>
+          <div className="cart-title">{t('yourCart')} ({itemCount})</div>
           <div className="close-x" onClick={onClose}>×</div>
         </div>
         <div className="cart-items liane-scroll">
@@ -33,15 +36,15 @@ export default function CartDrawer({ open, cart, onClose, onInc, onDec, onRemove
           ))}
           {cart.length === 0 && (
             <div className="cart-empty">
-              <div className="cart-empty-title">Your cart is empty</div>
+              <div className="cart-empty-title">{t('cartEmpty')}</div>
               <div className="cart-empty-sub">Pieces you add will appear here.</div>
             </div>
           )}
         </div>
         <div className="cart-footer">
-          <div className="cart-subtotal-row"><span>Subtotal</span><span>{formatPrice(subtotal)}</span></div>
-          <div className="cart-note">Shipping &amp; taxes calculated at checkout</div>
-          <button className="liane-btn full" onClick={onCheckout}>Checkout</button>
+          <div className="cart-subtotal-row"><span>{t('subtotal')}</span><span>{formatPrice(subtotal)}</span></div>
+          <div className="cart-note">{t('freeShippingNote')}</div>
+          <button className="liane-btn full" onClick={onCheckout}>{t('toCheckout')}</button>
           <div className="continue-link" onClick={onClose}>Continue shopping</div>
         </div>
       </div>
