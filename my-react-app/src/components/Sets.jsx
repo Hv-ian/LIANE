@@ -1,6 +1,7 @@
-import { formatPrice } from '../data/products'
+import { useCurrency } from '../context/CurrencyContext'
 
 export default function Sets({ sets, products, onOpen, onAddSet }) {
+  const { formatPrice } = useCurrency()
   return (
     <div className="sets-page">
       <div className="section-head">

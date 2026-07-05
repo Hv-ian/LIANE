@@ -1,6 +1,7 @@
-import { formatPrice } from '../data/products'
+import { useCurrency } from '../context/CurrencyContext'
 
 export default function Checkout({ cart, onBack }) {
+  const { formatPrice } = useCurrency()
   const subtotal = cart.reduce((a, c) => a + c.price * c.qty, 0)
   const free = subtotal >= 1500 || subtotal === 0
   const shipping = free ? 0 : 75

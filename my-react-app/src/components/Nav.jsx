@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useCurrency, CURRENCIES } from '../context/CurrencyContext'
 
 export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMenu }) {
   const [openMenu, setOpenMenu] = useState(null)
+  const { currency, setCurrency } = useCurrency()
 
   return (
     <>
@@ -62,6 +64,16 @@ export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMen
         </div>
         <div className="logo" onClick={() => onNavigate('home')}>LIANÉ</div>
         <div className="nav-icons">
+          <select
+            className="currency-select"
+            value={currency}
+            onChange={e => setCurrency(e.target.value)}
+            aria-label="Select currency"
+          >
+            {CURRENCIES.map(c => (
+              <option key={c.code} value={c.code}>{c.code}</option>
+            ))}
+          </select>
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1c1c1a" strokeWidth="1.5"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
           <div className="nav-icon-btn" onClick={() => onNavigate('loyalty')} title="Loyalty Circle">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1c1c1a" strokeWidth="1.5" style={{ pointerEvents: 'none' }}><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"></path></svg>

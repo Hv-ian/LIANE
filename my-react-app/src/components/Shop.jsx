@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { formatPrice } from '../data/products'
+import { useCurrency } from '../context/CurrencyContext'
 
 export default function Shop({ products, gender, material, onOpen, onAdd }) {
+  const { formatPrice } = useCurrency()
   const [category, setCategory] = useState('All')
 
   const filtered = products

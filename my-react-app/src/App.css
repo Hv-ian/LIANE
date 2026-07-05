@@ -178,6 +178,8 @@ h1, h2 { font-weight: 400; }
   justify-content: flex-end;
 }
 .nav-icon-btn { cursor: pointer; display: flex; align-items: center; }
+.currency-select { background: none; border: 1px solid #d8d5d0; border-radius: 4px; padding: 4px 8px; font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1px; color: #1c1c1a; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; text-align: center; min-width: 52px; transition: border-color .2s; }
+.currency-select:hover, .currency-select:focus { border-color: #1c1c1a; }
 .cart-icon { position: relative; cursor: pointer; display: flex; align-items: center; }
 .cart-count {
   position: absolute;

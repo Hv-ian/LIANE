@@ -1,4 +1,4 @@
-import { formatPrice } from '../data/products'
+import { useCurrency } from '../context/CurrencyContext'
 import heroNeck from '../assets/hero-necklace.jpg'
 import heroBranch from '../assets/hero-branch.png'
 import splitWomen from '../assets/split-women.jpg'
@@ -9,6 +9,7 @@ import highlightImg from '../assets/cat-bracelets.jpg'
 import editorialImg from '../assets/cat-rings.jpg'
 
 export default function Home({ products, onNavigate, onOpen, onAdd }) {
+  const { formatPrice } = useCurrency()
   const featured = products.slice(0, 4)
 
   return (

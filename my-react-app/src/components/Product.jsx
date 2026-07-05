@@ -1,4 +1,4 @@
-import { formatPrice } from '../data/products'
+import { useCurrency } from '../context/CurrencyContext'
 import PersonalizationPanel from './PersonalizationPanel'
 
 const metals = [
@@ -9,6 +9,7 @@ const metals = [
 const accordion = [{ label: 'Details & materials' }, { label: 'Sizing & fit' }, { label: 'Shipping & returns' }]
 
 export default function Product({ product, onBack, onAdd }) {
+  const { formatPrice } = useCurrency()
   if (!product) return null
   return (
     <div className="product-page">

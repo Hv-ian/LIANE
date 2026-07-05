@@ -13,6 +13,7 @@ import Sets from './components/Sets'
 import Heritage from './components/Heritage'
 import CustomOrder from './components/CustomOrder'
 import Loyalty from './components/Loyalty'
+import { CurrencyProvider } from './context/CurrencyContext'
 import './App.css'
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
   const currentProduct = products.find(p => p.id === currentId)
 
   return (
+    <CurrencyProvider>
     <div className="app-root">
       <Nav
         cartCount={cartCount}
@@ -158,6 +160,7 @@ function App() {
 
       <MobileMenu open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} onNavigate={navigate} />
     </div>
+    </CurrencyProvider>
   )
 }
 

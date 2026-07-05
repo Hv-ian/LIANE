@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { formatPrice } from '../data/products'
+import { useCurrency } from '../context/CurrencyContext'
 
 const ENGRAVING_PRICE = 250
 
@@ -170,6 +170,7 @@ function SymbolMark({ symbol, cx, cy, metal: m }) {
 
 // ── Main panel ────────────────────────────────────────────────────────────────
 export default function PersonalizationPanel({ product, onAdd }) {
+  const { formatPrice } = useCurrency()
   const [initials, setInitials] = useState('')
   const [metal, setMetal] = useState(product.material === 'gold' ? 'gold' : 'silver')
   const [stone, setStone] = useState('none')

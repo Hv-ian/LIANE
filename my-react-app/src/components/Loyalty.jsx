@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { formatPrice } from '../data/products'
+import { useCurrency } from '../context/CurrencyContext'
 
 // ── Demo data ─────────────────────────────────────────────────────────────────
 const SAMPLE_ORDERS_ACTIVE = [
@@ -181,6 +181,7 @@ function TrackingTimeline({ order }) {
 
 // ── Order card ────────────────────────────────────────────────────────────────
 function OrderCard({ order, showTracking = false }) {
+  const { formatPrice } = useCurrency()
   return (
     <div className="order-card">
       <div className="order-card-head">
@@ -214,6 +215,7 @@ function OrderCard({ order, showTracking = false }) {
 
 // ── Return card ───────────────────────────────────────────────────────────────
 function ReturnCard({ ret }) {
+  const { formatPrice } = useCurrency()
   return (
     <div className="order-card">
       <div className="order-card-head">

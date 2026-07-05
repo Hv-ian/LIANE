@@ -1,6 +1,7 @@
-import { formatPrice } from '../data/products'
+import { useCurrency } from '../context/CurrencyContext'
 
 export default function CartDrawer({ open, cart, onClose, onInc, onDec, onRemove, onCheckout }) {
+  const { formatPrice } = useCurrency()
   const subtotal = cart.reduce((a, c) => a + c.price * c.qty, 0)
 
   return (

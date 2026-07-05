@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { formatPrice } from '../data/products'
+import { useCurrency } from '../context/CurrencyContext'
 import ringImg from '../assets/men-rings.jpg'
 import braceletImg from '../assets/men-bracelet.jpg'
 import ringPng from '../assets/ring-product.png'
@@ -78,6 +78,7 @@ function StepBar({ step }) {
 
 // ── Summary card ──────────────────────────────────────────────────────────────
 function SummaryCard({ piece, stone, engraving }) {
+  const { formatPrice } = useCurrency()
   const s = STONES.find(x => x.id === stone)
   const p = PIECE_TYPES.find(x => x.id === piece)
   const base = BASE_PRICE[piece] || 590
