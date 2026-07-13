@@ -7,7 +7,7 @@ export default function MobileMenu({ open, onClose, onNavigate }) {
       <div className={`drawer-overlay ${open ? 'open' : ''}`} onClick={onClose}></div>
       <div className={`mobile-menu ${open ? 'open' : ''}`}>
         <div className="mobile-menu-head">
-          <div className="logo-sm">LIANÉ</div>
+          <div className="logo-sm">LIANELA</div>
           <div className="close-x" onClick={onClose}>×</div>
         </div>
         <div className="mobile-menu-links">

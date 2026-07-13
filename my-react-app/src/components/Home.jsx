@@ -140,7 +140,7 @@ export default function Home({ products, onNavigate, onOpen, onAdd }) {
         <div className="editorial-text">
           <div className="eyebrow">The house</div>
           <h2>Made to be worn for decades, not seasons</h2>
-          <p>Recycled solid gold and responsibly sourced stones, hand-finished in small batches. Every piece carries the LIANÉ hallmark and a lifetime repair promise.</p>
+          <p>Recycled solid gold and responsibly sourced stones, hand-finished in small batches. Every piece carries the LIANELA hallmark and a lifetime repair promise.</p>
           <div className="text-link" onClick={() => onNavigate('about')}>{t('ourStory')}</div>
         </div>
       </section>

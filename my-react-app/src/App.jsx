@@ -33,7 +33,7 @@ function SiteFooter({ navigate }) {
     <footer className="site-footer">
       <div className="footer-grid">
         <div>
-          <div className="footer-logo">LIANÉ</div>
+          <div className="footer-logo">LIANELA</div>
           <p>{t('footerTagline')}</p>
         </div>
         <div>

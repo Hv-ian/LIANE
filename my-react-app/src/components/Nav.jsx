@@ -114,7 +114,7 @@ export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMen
           <div className="liane-nav muted nav-loyalty" onClick={() => onNavigate('loyalty')}>{t('loyaltyCircle')}</div>
         </div>
 
-        <div className="logo" onClick={() => onNavigate('home')}>LIANÉ</div>
+        <div className="logo" onClick={() => onNavigate('home')}>LIANELA</div>
 
         <div className="nav-icons">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1c1c1a" strokeWidth="1.5" style={{cursor:'pointer'}}><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { sampleOrders } from '../data/orders'
 
-const OWNER_PASSWORD = 'liane2026'
+const OWNER_PASSWORD = 'lianela2026'
 
 export default function Owner({ onBack }) {
   const [authed, setAuthed] = useState(false)
@@ -28,7 +28,7 @@ export default function Owner({ onBack }) {
       <div className="owner-login">
         <div className="owner-login-box">
           <div className="back-link" onClick={onBack}>← Back to site</div>
-          <div className="logo-sm" style={{ marginBottom: 28 }}>LIANÉ — Owner</div>
+          <div className="logo-sm" style={{ marginBottom: 28 }}>LIANELA — Owner</div>
           <form onSubmit={handleLogin}>
             <input
               className="ck-input full"
@@ -41,7 +41,7 @@ export default function Owner({ onBack }) {
             {error && <div className="owner-error">{error}</div>}
             <button className="liane-btn full" type="submit" style={{ marginTop: 18 }}>Log in</button>
           </form>
-          <div className="owner-demo-note">Demo only — password: liane2026</div>
+          <div className="owner-demo-note">Demo only — password: lianela2026</div>
         </div>
       </div>
     )
@@ -96,7 +96,7 @@ function ShippingLabel({ order, onBack }) {
       <div className="shipping-label">
         <div className="label-from">
           <div className="label-section-title">From</div>
-          <div>LIANÉ</div>
+          <div>LIANELA</div>
           <div>Götgatan 1</div>
           <div>111 22 Stockholm</div>
           <div>Sweden</div>
