@@ -13,7 +13,7 @@ export default function Shop({ products, gender, material, onOpen, onAdd }) {
     .filter(p => category === 'All' || p.category === category)
 
   const heading = gender === 'women' ? t('women') : gender === 'men' ? t('men') : material === 'silver' ? t('silverStone') : t('collection')
-  const eyebrow = gender === 'women' ? t('forHer') : gender === 'men' ? t('forHim') : material === 'silver' ? 'Natural stone, hand-set in sterling silver' : t('forAll')
+  const eyebrow = gender === 'women' ? t('forHer') : gender === 'men' ? t('forHim') : material === 'silver' ? t('silverStoneEyebrow') : t('forAll')
 
   const filters = [
     { key: 'All', label: t('all') },
@@ -50,7 +50,7 @@ export default function Shop({ products, gender, material, onOpen, onAdd }) {
             <button className="ghost-btn" onClick={() => onAdd(p)}>{t('addToCart')}</button>
           </div>
         ))}
-        {filtered.length === 0 && <div className="shop-empty">No pieces match this filter yet.</div>}
+        {filtered.length === 0 && <div className="shop-empty">{t('shopEmpty')}</div>}
       </div>
     </div>
   )

@@ -37,7 +37,7 @@ export default function CartDrawer({ open, cart, onClose, onInc, onDec, onRemove
           {cart.length === 0 && (
             <div className="cart-empty">
               <div className="cart-empty-title">{t('cartEmpty')}</div>
-              <div className="cart-empty-sub">Pieces you add will appear here.</div>
+              <div className="cart-empty-sub">{t('cartEmptySub')}</div>
             </div>
           )}
         </div>
@@ -45,7 +45,7 @@ export default function CartDrawer({ open, cart, onClose, onInc, onDec, onRemove
           <div className="cart-subtotal-row"><span>{t('subtotal')}</span><span>{formatPrice(subtotal)}</span></div>
           <div className="cart-note">{t('freeShippingNote')}</div>
           <button className="liane-btn full" onClick={onCheckout}>{t('toCheckout')}</button>
-          <div className="continue-link" onClick={onClose}>Continue shopping</div>
+          <div className="continue-link" onClick={onClose}>{t('continueShopping')}</div>
         </div>
       </div>
     </>

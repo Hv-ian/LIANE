@@ -1,20 +1,24 @@
-const values = [
-  { stat: '100%', label: 'Recycled gold' },
-  { stat: 'Lifetime', label: 'Repair promise' },
-  { stat: '48h', label: 'Stockholm dispatch' },
-]
+import { useLanguage } from '../context/LanguageContext'
 
 export default function About({ onNavigate }) {
+  const { t } = useLanguage()
+
+  const values = [
+    { stat: '100%', label: t('aboutStat1') },
+    { stat: 'Lifetime', label: t('aboutStat2') },
+    { stat: '48h', label: t('aboutStat3') },
+  ]
+
   return (
     <div>
       <section className="about-hero">
-        <div className="eyebrow">Since 2026</div>
-        <h1>Old craft. New hands.</h1>
+        <div className="eyebrow">{t('aboutEyebrow')}</div>
+        <h1>{t('aboutH1')}</h1>
       </section>
       <section className="about-copy">
-        <p className="quote">"Swedish silversmiths once engraved motifs that carried meaning for generations. I wanted to bring that back — not as nostalgia, but as something you actually wear."</p>
-        <p>Founded by Liana in Stockholm, LIANÉ revives pre-industrial Swedish metalsmithing — drawing on Norse knotwork, folk motifs, and ancient soldering techniques that largely disappeared with mass production. Each piece is made in small batches from recycled solid gold and responsibly sourced stones.</p>
-        <p>We believe jewelry should be lived in — worn daily, passed down, repaired rather than replaced. Every LIANÉ order carries a lifetime craftsmanship promise.</p>
+        <p className="quote">{t('aboutQuote')}</p>
+        <p>{t('aboutP1')}</p>
+        <p>{t('aboutP2')}</p>
       </section>
       <section className="values-grid">
         {values.map(v => (
@@ -25,7 +29,7 @@ export default function About({ onNavigate }) {
         ))}
       </section>
       <section className="about-cta">
-        <button className="liane-btn" onClick={() => onNavigate('shop')}>Explore the collection</button>
+        <button className="liane-btn" onClick={() => onNavigate('shop')}>{t('exploreCollection')}</button>
       </section>
     </div>
   )

@@ -1,33 +1,28 @@
 import { useState } from 'react'
 import { useCurrency } from '../context/CurrencyContext'
+import { useLanguage } from '../context/LanguageContext'
 
 const ENGRAVING_PRICE = 250
 
-const METALS = [
-  { id: 'silver', label: 'Sterling silver', main: '#c8c5bf', hi: '#e2e0db', shadow: '#a8a5a0', oxidized: '#7a7872' },
-  { id: 'gold',   label: 'Solid gold',      main: '#c9b88a', hi: '#ddd0a5', shadow: '#b09a68', oxidized: '#8a7848' },
+const METAL_IDS = [
+  { id: 'silver', main: '#c8c5bf', hi: '#e2e0db', shadow: '#a8a5a0', oxidized: '#7a7872' },
+  { id: 'gold',   main: '#c9b88a', hi: '#ddd0a5', shadow: '#b09a68', oxidized: '#8a7848' },
 ]
 
-const STONES = [
-  { id: 'none',      label: 'No stone',  fill: 'none',    stroke: 'none' },
-  { id: 'garnet',    label: 'Garnet',    fill: '#9b2335', stroke: '#7a1c28' },
-  { id: 'moonstone', label: 'Moonstone', fill: '#dce8f0', stroke: '#b8ccd8' },
-  { id: 'amethyst',  label: 'Amethyst',  fill: '#7b5ea7', stroke: '#5c4480' },
-  { id: 'onyx',      label: 'Black onyx',fill: '#2a2825', stroke: '#1a1816' },
+const STONE_IDS = [
+  { id: 'none',      fill: 'none',    stroke: 'none' },
+  { id: 'garnet',    fill: '#9b2335', stroke: '#7a1c28' },
+  { id: 'moonstone', fill: '#dce8f0', stroke: '#b8ccd8' },
+  { id: 'amethyst',  fill: '#7b5ea7', stroke: '#5c4480' },
+  { id: 'onyx',      fill: '#2a2825', stroke: '#1a1816' },
 ]
 
-const SYMBOLS = [
-  { id: 'cross',  label: 'Khachkar cross' },
-  { id: 'knot',   label: 'Eternity knot' },
-  { id: 'pom',    label: 'Pomegranate' },
-]
-
+const SYMBOL_IDS = ['cross', 'knot', 'pom']
 const CHAINS = ['40 cm', '45 cm', '50 cm']
 
-// ── SVG pendant ──────────────────────────────────────────────────────────────
-function PendantSVG({ initials, metal, stone, symbol }) {
-  const m = METALS.find(x => x.id === metal)
-  const s = STONES.find(x => x.id === stone)
+function PendantSVG({ initials, metal, stone, symbol, addInitialsLabel }) {
+  const m = METAL_IDS.find(x => x.id === metal)
+  const s = STONE_IDS.find(x => x.id === stone)
   const hasStone = stone !== 'none'
 
   return (
@@ -50,12 +45,10 @@ function PendantSVG({ initials, metal, stone, symbol }) {
         </filter>
       </defs>
 
-      {/* chain */}
       <path d="M 140 62 Q 100 50 72 28" stroke={m.main} strokeWidth="2.2" fill="none" strokeLinecap="round" opacity=".7" />
       <path d="M 140 62 Q 180 50 208 28" stroke={m.main} strokeWidth="2.2" fill="none" strokeLinecap="round" opacity=".7" />
       <path d="M 140 62 Q 100 50 72 28" stroke={m.hi} strokeWidth=".8" fill="none" strokeLinecap="round" opacity=".5" />
       <path d="M 140 62 Q 180 50 208 28" stroke={m.hi} strokeWidth=".8" fill="none" strokeLinecap="round" opacity=".5" />
-      {/* chain links hint */}
       {[0.2, 0.4, 0.6, 0.8].map(t => {
         const lx = 140 + (72 - 140) * t + (100 - 140) * t * (1 - t) * 2
         const ly = 62 + (28 - 62) * t + (50 - 62) * t * (1 - t) * 2
@@ -67,39 +60,24 @@ function PendantSVG({ initials, metal, stone, symbol }) {
         return <circle key={`r${t}`} cx={rx} cy={ry} r="1.8" fill={m.main} opacity=".6" />
       })}
 
-      {/* bail */}
       <rect x="133" y="55" width="14" height="22" rx="4" fill="url(#metalGrad)" filter="url(#pendantShadow)" />
       <rect x="135.5" y="57.5" width="9" height="17" rx="2.5" fill="none" stroke={m.hi} strokeWidth=".8" opacity=".6" />
 
-      {/* cross body — Armenian cross with slightly flared ends */}
       <g filter="url(#pendantShadow)" style={{ transition: 'all .4s ease' }}>
-        {/* vertical bar */}
         <rect x="126" y="72" width="28" height="230" rx="5" fill="url(#metalGrad)" />
-        {/* horizontal bar */}
         <rect x="72"  y="178" width="136" height="28" rx="5" fill="url(#metalGrad)" />
-
-        {/* flared tips — top */}
         <polygon points="122,80 140,68 158,80 152,88 128,88" fill="url(#metalGrad)" />
-        {/* flared tips — bottom */}
         <polygon points="122,294 140,306 158,294 152,286 128,286" fill="url(#metalGrad)" />
-        {/* flared tips — left */}
         <polygon points="80,174 68,192 80,210 88,204 88,180" fill="url(#metalGrad)" />
-        {/* flared tips — right */}
         <polygon points="200,174 212,192 200,210 192,204 192,180" fill="url(#metalGrad)" />
-
-        {/* surface highlight */}
         <rect x="133" y="74" width="8" height="226" rx="3" fill={m.hi} opacity=".35" />
         <rect x="74"  y="182" width="130" height="8" rx="3" fill={m.hi} opacity=".25" />
-
-        {/* oxidized edge lines for depth */}
         <rect x="126" y="72" width="28" height="230" rx="5" fill="none" stroke={m.oxidized} strokeWidth=".6" opacity=".4" />
         <rect x="72"  y="178" width="136" height="28" rx="5" fill="none" stroke={m.oxidized} strokeWidth=".6" opacity=".4" />
       </g>
 
-      {/* Armenian decorative motif in cross intersection */}
       <SymbolMark symbol={symbol} cx={140} cy={192} metal={m} />
 
-      {/* stone */}
       {hasStone && (
         <g>
           <circle cx="140" cy="265" r="9" fill="url(#stoneGrad)" />
@@ -108,7 +86,6 @@ function PendantSVG({ initials, metal, stone, symbol }) {
         </g>
       )}
 
-      {/* engraved initials */}
       {initials && (
         <text
           x="140"
@@ -126,19 +103,17 @@ function PendantSVG({ initials, metal, stone, symbol }) {
         </text>
       )}
 
-      {/* placeholder when no initials */}
       {!initials && (
         <text x="140" y="248" textAnchor="middle" dominantBaseline="middle"
           fontFamily="'Jost', sans-serif" fontSize="10" fill={m.oxidized} opacity=".4"
           letterSpacing="1.5">
-          ADD INITIALS
+          {addInitialsLabel}
         </text>
       )}
     </svg>
   )
 }
 
-// Armenian decorative marks
 function SymbolMark({ symbol, cx, cy, metal: m }) {
   const c = m.oxidized
   const op = .55
@@ -168,14 +143,33 @@ function SymbolMark({ symbol, cx, cy, metal: m }) {
   return null
 }
 
-// ── Main panel ────────────────────────────────────────────────────────────────
 export default function PersonalizationPanel({ product, onAdd }) {
   const { formatPrice } = useCurrency()
+  const { t } = useLanguage()
   const [initials, setInitials] = useState('')
   const [metal, setMetal] = useState(product.material === 'gold' ? 'gold' : 'silver')
   const [stone, setStone] = useState('none')
   const [symbol, setSymbol] = useState('cross')
   const [chain, setChain] = useState('45 cm')
+
+  const METALS = [
+    { id: 'silver', label: t('persMetalSilver'), ...METAL_IDS.find(m => m.id === 'silver') },
+    { id: 'gold',   label: t('persMetalGold'),   ...METAL_IDS.find(m => m.id === 'gold') },
+  ]
+
+  const STONES = [
+    { id: 'none',      label: t('persStoneNone'),      ...STONE_IDS.find(s => s.id === 'none') },
+    { id: 'garnet',    label: t('persStoneGarnet'),    ...STONE_IDS.find(s => s.id === 'garnet') },
+    { id: 'moonstone', label: t('persStoneMoonstone'), ...STONE_IDS.find(s => s.id === 'moonstone') },
+    { id: 'amethyst',  label: t('persStoneAmethyst'),  ...STONE_IDS.find(s => s.id === 'amethyst') },
+    { id: 'onyx',      label: t('persStoneOnyx'),      ...STONE_IDS.find(s => s.id === 'onyx') },
+  ]
+
+  const SYMBOLS = [
+    { id: 'cross', label: t('persSymbol1') },
+    { id: 'knot',  label: t('persSymbol2') },
+    { id: 'pom',   label: t('persSymbol3') },
+  ]
 
   const engravingFee = initials.trim().length > 0 ? ENGRAVING_PRICE : 0
   const total = product.price + engravingFee
@@ -194,29 +188,27 @@ export default function PersonalizationPanel({ product, onAdd }) {
   return (
     <div className="pers-panel">
       <div className="pers-preview">
-        <PendantSVG initials={initials} metal={metal} stone={stone} symbol={symbol} />
-        <div className="pers-preview-note">Live preview · not to scale</div>
+        <PendantSVG initials={initials} metal={metal} stone={stone} symbol={symbol} addInitialsLabel={t('persAddInitials')} />
+        <div className="pers-preview-note">{t('persPreviewNote')}</div>
       </div>
 
       <div className="pers-controls">
-        <div className="pers-headline">Personalise this piece</div>
+        <div className="pers-headline">{t('persHeadline')}</div>
 
-        {/* initials */}
         <div className="pers-section">
-          <div className="pers-label">Engraved initials <span className="pers-badge">+{ENGRAVING_PRICE} kr</span></div>
+          <div className="pers-label">{t('persInitialsLabel')} <span className="pers-badge">+{ENGRAVING_PRICE} kr</span></div>
           <input
             className="pers-input"
             maxLength={3}
-            placeholder="e.g. L · LA · LIA"
+            placeholder={t('persInitialsPlaceholder')}
             value={initials}
             onChange={e => setInitials(e.target.value.replace(/[^a-zA-Z·. ]/g, ''))}
           />
-          <div className="pers-hint">1–3 letters, spaced with · if needed</div>
+          <div className="pers-hint">{t('persInitialsHint')}</div>
         </div>
 
-        {/* Armenian symbol */}
         <div className="pers-section">
-          <div className="pers-label">Engraved symbol</div>
+          <div className="pers-label">{t('persSymbolLabel')}</div>
           <div className="pers-chip-row">
             {SYMBOLS.map(s => (
               <button key={s.id} className={`pers-chip ${symbol === s.id ? 'active' : ''}`} onClick={() => setSymbol(s.id)}>
@@ -226,9 +218,8 @@ export default function PersonalizationPanel({ product, onAdd }) {
           </div>
         </div>
 
-        {/* metal */}
         <div className="pers-section">
-          <div className="pers-label">Metal</div>
+          <div className="pers-label">{t('persMetal')}</div>
           <div className="pers-chip-row">
             {METALS.map(m => (
               <button key={m.id} className={`pers-chip ${metal === m.id ? 'active' : ''}`} onClick={() => setMetal(m.id)}>
@@ -239,9 +230,8 @@ export default function PersonalizationPanel({ product, onAdd }) {
           </div>
         </div>
 
-        {/* stone */}
         <div className="pers-section">
-          <div className="pers-label">Stone accent <span className="pers-muted">— choose for meaning</span></div>
+          <div className="pers-label">{t('persStoneLabel')} <span className="pers-muted">{t('persStoneNote')}</span></div>
           <div className="pers-stone-row">
             {STONES.map(s => (
               <button key={s.id} title={s.label} className={`pers-stone-btn ${stone === s.id ? 'active' : ''}`}
@@ -253,9 +243,8 @@ export default function PersonalizationPanel({ product, onAdd }) {
           </div>
         </div>
 
-        {/* chain length */}
         <div className="pers-section">
-          <div className="pers-label">Chain length</div>
+          <div className="pers-label">{t('persChainLabel')}</div>
           <div className="pers-chip-row">
             {CHAINS.map(c => (
               <button key={c} className={`pers-chip ${chain === c ? 'active' : ''}`} onClick={() => setChain(c)}>{c}</button>
@@ -263,17 +252,16 @@ export default function PersonalizationPanel({ product, onAdd }) {
           </div>
         </div>
 
-        {/* price + CTA */}
         <div className="pers-price-row">
           <div>
             <div className="pers-price">{formatPrice(total)}</div>
             {engravingFee > 0 && <div className="pers-price-note">Incl. {formatPrice(ENGRAVING_PRICE)} engraving</div>}
           </div>
           <button className="liane-btn pers-add-btn" onClick={handleAdd}>
-            Add to cart
+            {t('addToCartBtn')}
           </button>
         </div>
-        <div className="pers-disclaimer">Each piece is hand-finished to order · allow 5–7 days</div>
+        <div className="pers-disclaimer">{t('persDisclaimer')}</div>
       </div>
     </div>
   )

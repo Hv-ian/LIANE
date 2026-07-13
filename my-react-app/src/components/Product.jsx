@@ -2,23 +2,28 @@ import { useCurrency } from '../context/CurrencyContext'
 import { useLanguage } from '../context/LanguageContext'
 import PersonalizationPanel from './PersonalizationPanel'
 
-const metals = [
-  { name: 'Gold', active: true },
-  { name: 'White gold', active: false },
-  { name: 'Silver', active: false },
-]
-const accordion = [{ label: 'Details & materials' }, { label: 'Sizing & fit' }, { label: 'Shipping & returns' }]
-
 export default function Product({ product, onBack, onAdd }) {
   const { formatPrice } = useCurrency()
   const { t } = useLanguage()
   if (!product) return null
+
+  const metals = [
+    { name: t('metalGold'), active: true },
+    { name: t('metalWhiteGold'), active: false },
+    { name: t('metalSilver'), active: false },
+  ]
+  const accordion = [
+    { label: t('accordionDetails') },
+    { label: t('accordionSizing') },
+    { label: t('accordionShipping') },
+  ]
+
   return (
     <div className="product-page">
       <div className="back-link" onClick={onBack}>{t('back')}</div>
 
       {product.personalizable && (
-        <div className="pers-flag">✦ This piece can be personalised</div>
+        <div className="pers-flag">{t('personalisableFlag')}</div>
       )}
 
       <div className="prod-detail">
@@ -36,7 +41,7 @@ export default function Product({ product, onBack, onAdd }) {
           <div className="prod-price-lg">{formatPrice(product.price)}</div>
           <p className="prod-desc">{product.desc}</p>
 
-          <div className="metal-label">Metal</div>
+          <div className="metal-label">{t('metalLabel')}</div>
           <div className="metal-row">
             {metals.map(m => (
               <div key={m.name} className={`metal-chip ${m.active ? 'active' : ''}`}>{m.name}</div>
@@ -61,9 +66,9 @@ export default function Product({ product, onBack, onAdd }) {
       {product.personalizable && (
         <div className="pers-section-wrap">
           <div className="pers-section-head">
-            <div className="eyebrow">Made for you</div>
-            <h2>Design your own</h2>
-            <p>Choose your initials, symbol, stone, and metal. We engrave each piece by hand before it ships.</p>
+            <div className="eyebrow">{t('persEyebrow')}</div>
+            <h2>{t('persH2')}</h2>
+            <p>{t('persIntro')}</p>
           </div>
           <PersonalizationPanel product={product} onAdd={onAdd} />
         </div>
