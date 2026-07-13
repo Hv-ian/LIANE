@@ -117,10 +117,10 @@ export default function Home({ products, onNavigate, onOpen, onAdd }) {
       <section className="marquee-band">
         <div className="marquee-track">
           <div className="marquee-row">
-            <span>Recycled solid gold</span><span className="dot">✦</span><span>Crafted in Stockholm</span><span className="dot">✦</span><span>Armenian goldwork</span><span className="dot">✦</span><span>Lifetime repair</span><span className="dot">✦</span>
+            <span>Recycled solid gold</span><span className="dot">✦</span><span>Crafted in Stockholm</span><span className="dot">✦</span><span>Ancient Swedish craft</span><span className="dot">✦</span><span>Lifetime repair</span><span className="dot">✦</span>
           </div>
           <div className="marquee-row">
-            <span>Recycled solid gold</span><span className="dot">✦</span><span>Crafted in Stockholm</span><span className="dot">✦</span><span>Armenian goldwork</span><span className="dot">✦</span><span>Lifetime repair</span><span className="dot">✦</span>
+            <span>Recycled solid gold</span><span className="dot">✦</span><span>Crafted in Stockholm</span><span className="dot">✦</span><span>Ancient Swedish craft</span><span className="dot">✦</span><span>Lifetime repair</span><span className="dot">✦</span>
           </div>
         </div>
       </section>

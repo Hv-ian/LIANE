@@ -41,7 +41,7 @@ const T = {
     emailPlaceholder: 'Email', joinBtn: 'Join',
     aboutLiane: 'About LIANÉ', loyaltyCircle: 'Loyalty Circle',
     silverAndStone: 'Silver & Stone', matchingSets: 'Matching Sets',
-    armenianHeritage: 'Armenian Heritage', customOrders: 'Custom Orders',
+    armenianHeritage: 'Our Heritage', customOrders: 'Custom Orders',
     rights: '© 2026 LIANÉ. All rights reserved.',
     privacy: 'Privacy · Terms · Cookies',
     // Custom order
@@ -87,7 +87,7 @@ const T = {
     emailPlaceholder: 'E-post', joinBtn: 'Gå med',
     aboutLiane: 'Om LIANÉ', loyaltyCircle: 'Loyalty Circle',
     silverAndStone: 'Silver & Sten', matchingSets: 'Matchande set',
-    armenianHeritage: 'Armeniskt arv', customOrders: 'Specialbeställningar',
+    armenianHeritage: 'Vårt arv', customOrders: 'Specialbeställningar',
     rights: '© 2026 LIANÉ. Alla rättigheter förbehållna.',
     privacy: 'Integritet · Villkor · Cookies',
     customTitle: 'Specialbeställning',

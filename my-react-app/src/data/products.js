@@ -18,7 +18,7 @@ export const products = [
   { id: 'r1', name: 'Stone Signet', category: 'Rings', gender: 'men', material: 'gold', price: 2450, tag: 'New', img: menRings, desc: 'A softly squared signet in recycled solid gold, hand-finished to a quiet matte. Weighted to sit flat and wear every day.', personalizable: true },
   { id: 'n1', name: 'Línea Necklace', category: 'Necklaces', gender: 'women', material: 'gold', price: 1890, tag: 'New', img: catNecklaces, desc: 'A fluid herringbone chain that catches light as it moves. Lies flush against the collarbone with a hidden clasp.' },
   { id: 'e1', name: 'Droplet Studs', category: 'Earrings', gender: 'women', material: 'gold', price: 1290, tag: '', img: catEarrings, desc: 'Faceted teardrop studs that read as a single point of light. Posts in nickel-free recycled gold.' },
-  { id: 'b1', name: 'Mesh Cuff', category: 'Bracelets', gender: 'women', material: 'gold', price: 3200, tag: '', img: catBracelets, desc: 'A woven mesh cuff inspired by Armenian metalwork — flexible, substantial, and entirely seamless.' },
+  { id: 'b1', name: 'Mesh Cuff', category: 'Bracelets', gender: 'women', material: 'gold', price: 3200, tag: '', img: catBracelets, desc: 'A woven mesh cuff rooted in old Swedish goldsmithing — flexible, substantial, and entirely seamless.' },
   { id: 'r2', name: 'Halo Stone Ring', category: 'Rings', gender: 'women', material: 'gold', price: 1650, tag: '', img: pMbracelet, desc: 'A cushion-cut stone framed by a fine pavé halo on a slender band. Quietly romantic.' },
   { id: 'n2', name: 'Pebble Pendant', category: 'Necklaces', gender: 'women', material: 'gold', price: 2100, tag: 'Low stock', img: heroNecklace, desc: 'A smooth river-stone pendant suspended on a fine cable chain. Each stone is selected by hand.' },
   { id: 'e2', name: 'Rope Hoops', category: 'Earrings', gender: 'women', material: 'gold', price: 1480, tag: '', img: pMmodel, desc: 'Twisted rope hoops with a warm gold finish. Light enough to forget you are wearing them.' },
@@ -29,8 +29,8 @@ export const products = [
   // ===== Silver & natural stone line =====
   { id: 's1', name: 'Moonstone Cuff', category: 'Bracelets', gender: 'women', material: 'silver', price: 890, tag: 'New', img: catBracelets, desc: 'A polished sterling silver cuff set with a raw moonstone. Said to calm and bring balance to the one who wears it.', meaning: 'Moonstone — balance & new beginnings' },
   { id: 's2', name: 'Onyx Band', category: 'Rings', gender: 'men', material: 'silver', price: 690, tag: '', img: menRings, desc: 'A heavy sterling silver band set with black onyx, oxidized for depth. Worn as protection against negativity.', meaning: 'Onyx — strength & protection' },
-  { id: 's3', name: 'Armenian Cross Pendant', category: 'Necklaces', gender: 'unisex', material: 'silver', price: 750, tag: 'New', img: catNecklaces, desc: 'A khachkar-inspired cross hand-engraved in sterling silver, carrying the eternity knot found on Armenian stone crosses for centuries.', meaning: 'Armenian cross — eternal faith & protection', armenian: true, personalizable: true },
-  { id: 's4', name: 'Eternity Knot Ring', category: 'Rings', gender: 'women', material: 'silver', price: 590, tag: '', img: catRings, desc: 'The endless Armenian eternity knot, hand-carved into a slender silver band — a quiet symbol of unity and continuity.', meaning: 'Eternity knot — unity & continuity', armenian: true, personalizable: true },
+  { id: 's3', name: 'Solkors Pendant', category: 'Necklaces', gender: 'unisex', material: 'silver', price: 750, tag: 'New', img: catNecklaces, desc: 'A sun cross hand-engraved in sterling silver — one of the oldest symbols in Scandinavian craft, found carved into rock and cast in bronze across Sweden for thousands of years.', meaning: 'Sun cross — light, protection & continuity', personalizable: true },
+  { id: 's4', name: 'Eternity Knot Ring', category: 'Rings', gender: 'women', material: 'silver', price: 590, tag: '', img: catRings, desc: 'An unbroken interlacing knot, hand-carved into a slender silver band — drawn from Norse knotwork tradition as a quiet symbol of unity and continuity.', meaning: 'Eternity knot — unity & continuity', personalizable: true },
   { id: 's5', name: 'Garnet Drop Earrings', category: 'Earrings', gender: 'women', material: 'silver', price: 650, tag: '', img: catEarrings, desc: 'Raw-cut garnet drops set in oxidized sterling silver. Traditionally worn for courage and vitality.', meaning: 'Garnet — courage & vitality' },
   { id: 's6', name: "Men's Stone Cuff", category: 'Bracelets', gender: 'men', material: 'silver', price: 790, tag: '', img: menBracelet, desc: 'A substantial sterling silver cuff set with natural tiger-eye, worn for focus and grounding.', meaning: 'Tiger-eye — focus & grounding' },
 ]
@@ -80,30 +80,30 @@ export const matchingSets = [
     occasion: 'Family',
     eyebrow: 'For three',
     img: catNecklaces,
-    desc: 'The Armenian cross pendant and eternity knot ring, sized for mother, daughter, and the generation after — the same symbol, carried by everyone.',
+    desc: 'The Solkors pendant and eternity knot ring, sized for mother, daughter, and the generation after — the same symbol, carried by everyone.',
     meaning: 'One symbol, passed down',
     itemIds: ['s3', 's4'],
   },
 ]
 
-// ===== Armenian motifs & symbolic stones — heritage / education content =====
+// ===== Ancient Swedish motifs — heritage / education content =====
 export const armenianSymbols = [
   {
-    name: 'Khachkar Cross',
+    name: 'Solkors',
     img: catNecklaces,
-    meaning: 'Eternal faith & protection',
-    desc: 'Modeled on the carved stone crosses found across Armenia, this motif has marked protection and remembrance for over a thousand years.',
+    meaning: 'Light, protection & continuity',
+    desc: 'The sun cross is one of the oldest motifs in Scandinavian craft — found engraved in rock, cast in bronze, and stitched into textiles across Sweden for over three thousand years. It marks the movement of light through the year.',
   },
   {
-    name: 'Eternity Knot',
+    name: 'Norse Knotwork',
     img: catRings,
     meaning: 'Unity & continuity',
-    desc: 'An unbroken interlacing line, traditionally worked into Armenian silverwork to symbolize a bond or family line that never ends.',
+    desc: 'An unbroken interlacing line drawn from Viking Age decorative tradition — worked into silver, wood, and stone to symbolize a bond or family line with no beginning and no end.',
   },
   {
-    name: 'Pomegranate Motif',
+    name: 'Älgblomma',
     img: catBracelets,
-    meaning: 'Fertility & abundance',
-    desc: 'A recurring symbol in Armenian decorative arts, often engraved into bracelets gifted between women in the same family.',
+    meaning: 'Growth & belonging',
+    desc: 'The elk flower is a recurring motif in Swedish folk art — engraved into birch and silver, gifted between generations as a mark of home and rootedness. We carry it forward as a small reminder of where you come from.',
   },
 ]

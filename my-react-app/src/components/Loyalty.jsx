@@ -9,7 +9,7 @@ const SAMPLE_ORDERS_ACTIVE = [
     date: '2026-07-01',
     items: [
       { name: 'Moonstone Cuff', price: 890, qty: 1 },
-      { name: 'Armenian Cross Pendant', price: 750, qty: 1 },
+      { name: 'Solkors Pendant', price: 750, qty: 1 },
     ],
     total: 1640,
     status: 'shipped',

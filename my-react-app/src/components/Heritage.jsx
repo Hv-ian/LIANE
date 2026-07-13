@@ -2,9 +2,9 @@ export default function Heritage({ symbols, onNavigate }) {
   return (
     <div className="heritage-page">
       <section className="heritage-hero">
-        <div className="eyebrow">Armenian heritage</div>
+        <div className="eyebrow">Swedish craft heritage</div>
         <h1>Symbols carried in silver</h1>
-        <p>Every motif we engrave traces back to Armenian stonework and goldsmithing — carried forward in sterling silver and natural stone, each one chosen for what it means, not just how it looks.</p>
+        <p>Every motif we engrave traces back to ancient Swedish metalsmithing — patterns cut by hand into iron, bone, and silver for over a thousand years. We carry them forward in sterling silver, chosen for what they mean, not just how they look.</p>
       </section>
       <section className="heritage-grid">
         {symbols.map(s => (
