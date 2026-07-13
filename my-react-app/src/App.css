@@ -200,6 +200,8 @@ h1, h2 { font-weight: 400; }
 .nav-dropdown-list div { font-family: 'Marcellus', serif; font-size: 16px; cursor: pointer; color: #1c1c1a; transition: color .2s; }
 .nav-dropdown-list div:hover { color: #8a8780; }
 .nav-dropdown-viewall { margin-top: 18px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #8a8780; cursor: pointer; border-top: 1px solid #f0eee9; padding-top: 14px; }
+.nav-dropdown-divider { height: 1px; background: #f0eee9; margin: 4px 0; }
+.nav-loyalty { color: #8a7a5e !important; }
 
 .logo {
   font-family: 'Marcellus', serif;

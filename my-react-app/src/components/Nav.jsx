@@ -74,6 +74,9 @@ export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMen
                     <div onClick={() => onNavigate('shop', 'women')}>{t('earrings')}</div>
                     <div onClick={() => onNavigate('shop', 'women')}>{t('rings')}</div>
                     <div onClick={() => onNavigate('shop', 'women')}>{t('bracelets')}</div>
+                    <div className="nav-dropdown-divider" />
+                    <div onClick={() => onNavigate('shop', null, 'silver')}>{t('silverStone')}</div>
+                    <div onClick={() => onNavigate('sets')}>{t('sets')}</div>
                   </div>
                   <div className="nav-dropdown-viewall" onClick={() => onNavigate('shop', 'women')}>{t('viewAll')}</div>
                 </div>
@@ -96,6 +99,9 @@ export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMen
                     <div onClick={() => onNavigate('shop', 'men')}>{t('chains')}</div>
                     <div onClick={() => onNavigate('shop', 'men')}>{t('bracelets')}</div>
                     <div onClick={() => onNavigate('shop', 'men')}>{t('cufflinks')}</div>
+                    <div className="nav-dropdown-divider" />
+                    <div onClick={() => onNavigate('shop', null, 'silver')}>{t('silverStone')}</div>
+                    <div onClick={() => onNavigate('sets')}>{t('sets')}</div>
                   </div>
                   <div className="nav-dropdown-viewall" onClick={() => onNavigate('shop', 'men')}>{t('viewAll')}</div>
                 </div>
@@ -103,10 +109,9 @@ export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMen
             )}
           </div>
 
-          <div className="liane-nav muted" onClick={() => onNavigate('shop', null, 'silver')}>{t('silverStone')}</div>
-          <div className="liane-nav muted" onClick={() => onNavigate('sets')}>{t('sets')}</div>
           <div className="liane-nav muted" onClick={() => onNavigate('heritage')}>{t('heritage')}</div>
           <div className="liane-nav muted" onClick={() => onNavigate('shop')}>{t('collection')}</div>
+          <div className="liane-nav muted nav-loyalty" onClick={() => onNavigate('loyalty')}>{t('loyaltyCircle')}</div>
         </div>
 
         <div className="logo" onClick={() => onNavigate('home')}>LIANÉ</div>
