@@ -130,7 +130,7 @@ export default function Home({ products, onNavigate, onOpen, onAdd }) {
           <div className="eyebrow">{t('customOrders')}</div>
           <h2>{t('customH1')}</h2>
           <p>{t('customHeroDesc')}</p>
-          <button className="liane-btn" onClick={() => onNavigate('custom-order')}>{t('customBegin')}</button>
+          <button className="liane-btn" onClick={() => onNavigate('custom')}>{t('customBegin')}</button>
         </div>
         <div className="custom-order-band-steps">
           <div className="co-step"><span className="co-step-num">01</span><span>{t('stepPiece')}</span></div>
