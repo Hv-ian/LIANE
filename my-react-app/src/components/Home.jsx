@@ -125,6 +125,24 @@ export default function Home({ products, onNavigate, onOpen, onAdd }) {
         </div>
       </section>
 
+      <section className="custom-order-band">
+        <div className="custom-order-band-inner">
+          <div className="eyebrow">{t('customOrders')}</div>
+          <h2>{t('customH1')}</h2>
+          <p>{t('customHeroDesc')}</p>
+          <button className="liane-btn" onClick={() => onNavigate('custom-order')}>{t('customBegin')}</button>
+        </div>
+        <div className="custom-order-band-steps">
+          <div className="co-step"><span className="co-step-num">01</span><span>{t('stepPiece')}</span></div>
+          <div className="co-step-divider">→</div>
+          <div className="co-step"><span className="co-step-num">02</span><span>{t('stepStone')}</span></div>
+          <div className="co-step-divider">→</div>
+          <div className="co-step"><span className="co-step-num">03</span><span>{t('stepEngrave')}</span></div>
+          <div className="co-step-divider">→</div>
+          <div className="co-step"><span className="co-step-num">04</span><span>{t('stepContact')}</span></div>
+        </div>
+      </section>
+
       <section className="highlight">
         <img src={highlightImg} alt="Gold mesh cuff" />
         <div className="highlight-tint"></div>
