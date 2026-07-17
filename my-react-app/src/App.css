@@ -170,6 +170,7 @@ h1, h2 { font-weight: 400; }
   align-items: center;
   gap: 28px;
   flex: 1;
+  padding-right: 32px;
 }
 .liane-nav {
   position: relative;

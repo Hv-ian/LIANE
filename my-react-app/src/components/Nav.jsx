@@ -111,7 +111,7 @@ export default function Nav({ cartCount, onNavigate, onOpenCart, onOpenMobileMen
 
           <div className="liane-nav muted" onClick={() => onNavigate('heritage')}>{t('heritage')}</div>
           <div className="liane-nav muted" onClick={() => onNavigate('shop')}>{t('collection')}</div>
-          <div className="liane-nav muted nav-custom" onClick={() => onNavigate('custom-order')}>{t('customOrders')}</div>
+          <div className="liane-nav muted nav-custom" onClick={() => onNavigate('custom')}>{t('customOrders')}</div>
           <div className="liane-nav muted nav-loyalty" onClick={() => onNavigate('loyalty')}>{t('loyaltyCircle')}</div>
         </div>
 
